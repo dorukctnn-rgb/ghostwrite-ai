@@ -1,85 +1,149 @@
+﻿
+app.post('/generate-ext', async (req, res) => {
+  const { review, email, tone } = req.body;
+  const isPro = users[email] && users[email].pro === true;
+
+  if (!review || review.trim().length < 5) {
+    return res.json({ error: 'No review text.' });
+  }
+
+  if (!isPro && review.length > 300) {
+    return res.json({ upgrade: true, message: 'Upgrade to PRO for unlimited characters.' });
+  }
+
+  const toneMap = {
+    friendly: 'Be warm, friendly and personal.',
+    professional: 'Be formal, concise and professional.',
+    witty: 'Be clever, a little witty but still respectful.'
+  };
+
+  try {
+    const response = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
+      model: 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: 'You are a professional business owner replying to a customer Google review. ' + (toneMap[tone] || toneMap.friendly) + ' Naturally include 1-2 relevant local SEO keywords. Keep reply under 100 words. Output ONLY the reply text.' },
+        { role: 'user', content: review }
+      ],
+      temperature: 0.75,
+      max_tokens: 200
+    }, {
+      headers: {
+        'Authorization': 'Bearer ' + process.env.GROQ_API_KEY,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const reply = response.data.choices[0].message.content.trim();
+    res.json({ reply });
+
+  } catch (e) {
+    res.json({ error: 'AI error.' });
+  }
+});
 const express = require('express');
-const path = require('path');
+const bodyParser = require('body-parser');
 const axios = require('axios');
-require('dotenv').config();
+const cookieParser = require('cookie-parser');
+const path = require('path');
 
 const app = express();
 
-// Render ve Yerel ortam için Port ayarı
-const PORT = process.env.PORT || 10000;
-
-// EJS ve Klasör Yollarını Kesinleştirme (Beyaz Sayfa Çözümü)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
-// Geçici Veri (Müşteri Dashboard için)
-const businessData = {
-    name: "GhostWrite AI Demo İşletmesi",
-    reviews: [
-        { id: 1, author: "Mert Yılmaz", rating: 5, text: "Hizmetten çok memnun kaldım, herkese tavsiye ederim.", date: "2 saat önce" },
-        { id: 2, author: "Sarah Smith", rating: 4, text: "The food was great but the waiting time was a bit long.", date: "5 saat önce" }
-    ]
+const users = {};
+
+const SEO_PAGES = {
+  'restaurant': { title: 'Google Review Replies for Restaurants', keyword: 'restaurant', desc: 'AI-powered review reply tool built for restaurant owners. Rank higher on Google Maps.' },
+  'dentist':    { title: 'Google Review Replies for Dentists',    keyword: 'dental clinic', desc: 'Reply to patient reviews professionally. Boost your dental practice on Google Maps.' },
+  'hotel':      { title: 'Google Review Replies for Hotels',      keyword: 'hotel', desc: 'Hotel review reply generator. Respond to guests and rank higher on Google Maps.' },
+  'negative':   { title: 'How to Reply to Negative Google Reviews', keyword: 'unhappy customer', desc: 'Turn bad reviews into trust signals with professional AI-crafted replies.' }
 };
 
-// --- ROTALAR (ROUTES) ---
-
-// 1. Ana Sayfa
 app.get('/', (req, res) => {
-    res.render('index');
+  const isPro = req.cookies.pro === 'true';
+  res.render('index', { result: '', review: '', email: '', isPro, page: null });
 });
 
-// 2. Dashboard
-app.get('/dashboard', (req, res) => {
-    res.render('dashboard', { 
-        businessName: businessData.name, 
-        reviews: businessData.reviews 
+Object.keys(SEO_PAGES).forEach(slug => {
+  app.get('/' + slug + '-reviews', (req, res) => {
+    const isPro = req.cookies.pro === 'true';
+    res.render('index', { result: '', review: '', email: '', isPro, page: SEO_PAGES[slug] });
+  });
+});
+
+app.post('/generate', async (req, res) => {
+  const { review, email, tone } = req.body;
+  const isPro = users[email] && users[email].pro === true ? true : req.cookies.pro === 'true';
+
+  if (!review || review.trim().length < 5) {
+    return res.render('index', { result: 'Please paste a customer review first.', review: '', email: email || '', isPro, page: null });
+  }
+
+  if (!isPro && review.length > 300) {
+    return res.render('index', { result: 'FREE_LIMIT', review, email: email || '', isPro: false, page: null });
+  }
+
+  const toneMap = {
+    friendly:     'Be warm, friendly and personal.',
+    professional: 'Be formal, concise and professional.',
+    witty:        'Be clever, a little witty but still respectful.'
+  };
+
+  const selectedTone = toneMap[tone] || toneMap['friendly'];
+
+  const systemPrompt = 'You are a professional business owner replying to a customer Google review. ' +
+    selectedTone +
+    ' Naturally include 1-2 relevant keywords to help local SEO. Keep reply under 100 words. Output ONLY the reply text, nothing else.';
+
+  try {
+    const response = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
+      model: 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: review }
+      ],
+      temperature: 0.75,
+      max_tokens: 200
+    }, {
+      headers: {
+        'Authorization': 'Bearer ' + process.env.GROQ_API_KEY,
+        'Content-Type': 'application/json'
+      }
     });
+
+    const result = response.data.choices[0].message.content.trim();
+    res.render('index', { result, review, email: email || '', isPro, page: null });
+
+  } catch (err) {
+    console.error('Groq error:', err.message);
+    res.render('index', { result: 'Service error. Please try again in a moment.', review, email: email || '', isPro, page: null });
+  }
 });
 
-// 3. Fiyatlandırma (LemonSqueezy Linklerini Buraya Koyabilirsin)
-app.get('/pricing', (req, res) => {
-    res.render('pricing', {
-        starterLink: "#", // Buraya LemonSqueezy linkini yapıştır
-        proLink: "#"      // Buraya LemonSqueezy linkini yapıştır
-    });
-});
-
-// 4. Ücretsiz Test Aracı
-app.get('/free-tool', (req, res) => {
-    res.render('free-tool');
-});
-
-// AI Cevap Üretme API'si
-app.post('/generate-reply', async (req, res) => {
-    const { reviewText, tone, specialInstructions } = req.body;
-    
-    try {
-        const response = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
-            model: "llama-3.3-70b-versatile",
-            messages: [
-                { 
-                    role: "system", 
-                    content: `Sen bir SEO ve itibar yönetimi uzmanısın. Müşteri yorumuna ${tone} bir tonla cevap yaz. Ekstra talimat: ${specialInstructions}. Cevabın kısa, etkileyici ve SEO odaklı olsun.` 
-                },
-                { role: "user", content: reviewText }
-            ]
-        }, {
-            headers: {
-                'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
-                'Content-Type': 'application/json'
-            }
-        });
-
-        res.json({ success: true, reply: response.data.choices[0].message.content });
-    } catch (error) {
-        console.error("AI Hatası:", error.response ? error.response.data : error.message);
-        res.status(500).json({ success: false, reply: "AI şu an cevap üretemedi, lütfen tekrar deneyin." });
+app.post('/webhook', (req, res) => {
+  try {
+    const event = req.body;
+    if (event.meta && event.meta.event_name === 'order_created') {
+      const email = event.data.attributes.user_email;
+      users[email] = { pro: true };
+      console.log('NEW PRO USER:', email);
     }
+  } catch (e) {
+    console.error('Webhook error:', e.message);
+  }
+  res.sendStatus(200);
 });
 
-// Sunucuyu Başlat
-app.listen(PORT, () => {
-    console.log(`🚀 GhostWrite AI Engine Active on Port ${PORT}`);
+app.get('/pro', (req, res) => {
+  res.cookie('pro', 'true', { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+  res.redirect('/');
 });
+
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, '0.0.0.0', () => console.log('ReviewGhost running on ' + PORT));
+
