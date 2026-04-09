@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pricing Plans | ReviewGhost AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #fff; }
+        .pricing-header { padding: 80px 0 50px; text-align: center; }
+        .card { border: 1px solid #dadce0; border-radius: 12px; transition: 0.3s; padding: 30px; }
+        .card:hover { border-color: #1a73e8; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+        .price-val { font-size: 3.5rem; font-weight: bold; color: #202124; }
+        .currency { font-size: 1.5rem; vertical-align: top; margin-top: 10px; display: inline-block; }
+        .period { color: #70757a; }
+        .btn-google { background: #1a73e8; color: white; border-radius: 4px; padding: 12px; font-weight: 500; width: 100%; border: none; }
+        .popular { border: 2px solid #1a73e8; position: relative; }
+        .badge-pop { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: #1a73e8; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; }
+        .toggle-container { margin-bottom: 40px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="pricing-header">
+        <h1 class="display-4 fw-bold">Ready to grow your business?</h1>
+        <p class="lead text-muted">Choose the plan that fits your local SEO goals.</p>
+        
+        <div class="d-flex justify-content-center align-items-center mt-4 toggle-container">
+            <span class="me-3 fw-bold">Monthly</span>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="billingToggle" style="width: 50px; height: 25px;">
+            </div>
+            <span class="ms-2 fw-bold">Yearly <span class="badge bg-success small">Save 20%</span></span>
+        </div>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-4">
+            <div class="card">
+                <h5 class="text-secondary">Starter</h5>
+                <div class="my-3">
+                    <span class="currency">$</span><span class="price-val" id="starterPrice">19</span><span class="period">/mo</span>
+                </div>
+                <p class="small text-muted">Perfect for solo entrepreneurs.</p>
+                <ul class="list-unstyled my-4">
+                    <li>✅ 50 AI Replies</li>
+                    <li>✅ 1 Business Profile</li>
+                    <li>✅ Standard Support</li>
+                </ul>
+                <button class="btn btn-outline-primary">Start Trial</button>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card popular">
+                <div class="badge-pop">MOST POPULAR</div>
+                <h5 class="text-primary">Pro</h5>
+                <div class="my-3">
+                    <span class="currency">$</span><span class="price-val" id="proPrice">49</span><span class="period">/mo</span>
+                </div>
+                <p class="small text-muted">Best for clinics & restaurants.</p>
+                <ul class="list-unstyled my-4">
+                    <li>✅ <b>Unlimited</b> AI Replies</li>
+                    <li>✅ 3 Business Profiles</li>
+                    <li>✅ <b>SEO Keyword Injection</b></li>
+                    <li>✅ Priority Support</li>
+                </ul>
+                <button class="btn btn-google">Go Pro</button>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <h5 class="text-secondary">Agency</h5>
+                <div class="my-3">
+                    <span class="currency">$</span><span class="price-val" id="agencyPrice">149</span><span class="period">/mo</span>
+                </div>
+                <p class="small text-muted">For marketing experts.</p>
+                <ul class="list-unstyled my-4">
+                    <li>✅ <b>Everything in Pro</b></li>
+                    <li>✅ 20 Business Profiles</li>
+                    <li>✅ White-label Portal</li>
+                </ul>
+                <button class="btn btn-outline-primary">Contact Us</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const toggle = document.getElementById('billingToggle');
+    const prices = {
+        starter: [19, 15],
+        pro: [49, 39],
+        agency: [149, 119]
+    };
+
+    toggle.addEventListener('change', () => {
+        const index = toggle.checked ? 1 : 0;
+        document.getElementById('starterPrice').innerText = prices.starter[index];
+        document.getElementById('proPrice').innerText = prices.pro[index];
+        document.getElementById('agencyPrice').innerText = prices.agency[index];
+    });
+</script>
+
+</body>
+</html>

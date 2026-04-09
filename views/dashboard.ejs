@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>ReviewGhost | Analiz ve Yönetim</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { background: #f4f6f9; font-family: 'Segoe UI', sans-serif; }
+        .sidebar { background: #fff; border-right: 1px solid #dee2e6; height: 100vh; padding: 25px; position: fixed; width: 280px; }
+        .main-content { margin-left: 280px; padding: 40px; }
+        .stat-card { background: #fff; border-radius: 15px; border: none; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-align: center; height: 100%; transition: 0.3s; }
+        .stat-card:hover { transform: translateY(-5px); }
+        .stat-val { font-size: 2rem; font-weight: 800; color: #1a73e8; }
+        .dna-box { background: #fff; border-radius: 12px; padding: 20px; border: 1px solid #e0e0e0; margin-top: 30px; }
+        .review-card { background: #fff; border-radius: 12px; padding: 20px; border: none; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .ai-reply-area { background: #f8f9fa; border-radius: 8px; padding: 15px; display: none; margin-top: 15px; border-left: 4px solid #1a73e8; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h3 class="fw-bold text-primary mb-4">ReviewGhost</h3>
+    <nav class="nav flex-column">
+        <a class="nav-link active fw-bold" href="/dashboard">📊 Genel Bakış</a>
+        <a class="nav-link text-dark" href="/pricing">💳 Abonelik Planım</a>
+        <a class="nav-link text-dark" href="/free-tool">🧪 Test Aracı</a>
+    </nav>
+    
+    <div class="dna-box">
+        <h6 class="fw-bold mb-3">🧬 Brand DNA Ayarları</h6>
+        <label class="small text-muted">Cevap Tonu</label>
+        <select id="toneSelect" class="form-select form-select-sm mb-3">
+            <option value="profesyonel ve resmi">Profesyonel</option>
+            <option value="samimi ve sıcak">Samimi</option>
+            <option value="lüks ve seçkin">Lüks/Elite</option>
+        </select>
+        <label class="small text-muted">Özel Talimatlar</label>
+        <textarea id="specialInfo" class="form-control form-control-sm" rows="3" placeholder="Örn: Her zaman yeni çıkan kahvemizden bahset..."></textarea>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h2 class="fw-bold">Hoş geldin, <%= businessName %> 👋</h2>
+        <span class="badge bg-success p-2">Sistem Aktif</span>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="stat-card bg-primary text-white" style="cursor:pointer" onclick="alert(`E-posta otomasyonu aktif: reply@reviewghost.ai adresine yönlendirme yapabilirsiniz!`)"><div class="small">Mail Automation</div><div class="stat-val text-white">ACTIVE</div></div>`n<div class="stat-card">
+                <div class="small text-muted mb-1">Tasarruf Edilen Zaman</div>
+                <div class="stat-val">18.4 <small class="fs-6">Saat</small></div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card bg-primary text-white" style="cursor:pointer" onclick="alert(`E-posta otomasyonu aktif: reply@reviewghost.ai adresine yönlendirme yapabilirsiniz!`)"><div class="small">Mail Automation</div><div class="stat-val text-white">ACTIVE</div></div>`n<div class="stat-card">
+                <div class="small text-muted mb-1">Cevaplanan Yorum</div>
+                <div class="stat-val">245</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card bg-primary text-white" style="cursor:pointer" onclick="alert(`E-posta otomasyonu aktif: reply@reviewghost.ai adresine yönlendirme yapabilirsiniz!`)"><div class="small">Mail Automation</div><div class="stat-val text-white">ACTIVE</div></div>`n<div class="stat-card">
+                <div class="small text-muted mb-1">Ortalama Puan</div>
+                <div class="stat-val text-warning">4.8 <small class="fs-6">★</small></div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card bg-primary text-white" style="cursor:pointer" onclick="alert(`E-posta otomasyonu aktif: reply@reviewghost.ai adresine yönlendirme yapabilirsiniz!`)"><div class="small">Mail Automation</div><div class="stat-val text-white">ACTIVE</div></div>`n<div class="stat-card">
+                <div class="small text-muted mb-1">SEO Görünürlük Artışı</div>
+                <div class="stat-val text-success">%32</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <h4 class="fw-bold mb-4">Bekleyen Yorumlar</h4>
+            <div id="reviewList">
+                <% reviews.forEach(r => { %>
+                    <div class="review-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="fw-bold"><%= r.author %></span>
+                            <span class="text-warning"><%= "★".repeat(r.rating) %></span>
+                        </div>
+                        <p class="text-secondary my-3"><%= r.text %></p>
+                        <button class="btn btn-outline-primary btn-sm rounded-pill px-3" onclick="generateReply('<%= r.id %>', '<%= r.text %>')">✨ Akıllı Cevap Üret</button>
+                        
+                        <div id="reply-box-<%= r.id %>" class="ai-reply-area">
+                            <textarea id="input-<%= r.id %>" class="form-control mb-2" rows="3"></textarea>
+                            <div class="d-flex justify-content-end gap-2">
+                                <button class="btn btn-light btn-sm">Düzenle</button>
+                                <button class="btn btn-primary btn-sm">Google'da Yayınla</button>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3 border-0 shadow-sm rounded-4">
+                <h6 class="fw-bold">Haftalık Trend</h6>
+                <canvas id="growthChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+async function generateReply(id, text) {
+    const box = document.getElementById('reply-box-' + id);
+    const input = document.getElementById('input-' + id);
+    box.style.display = 'block';
+    input.value = "AI senin için en iyi cevabı hazırlıyor...";
+
+    const res = await fetch('/generate-reply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+            reviewText: text, 
+            tone: document.getElementById('toneSelect').value,
+            specialInstructions: document.getElementById('specialInfo').value 
+        })
+    });
+    const data = await res.json();
+    input.value = data.reply;
+}
+
+// Basit Bir Grafik
+const ctx = document.getElementById('growthChart').getContext('2d');
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
+        datasets: [{
+            label: 'SEO Skoru',
+            data: [12, 19, 15, 25, 22, 30, 32],
+            borderColor: '#1a73e8',
+            tension: 0.4
+        }]
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Free AI Google Review Generator | ReviewGhost</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #f8f9fa; font-family: 'Segoe UI', sans-serif; }
+        .free-tool-box { background: white; border-radius: 15px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 50px; }
+        .btn-google { background: #1a73e8; color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-7 text-center">
+            <h1 class="fw-bold mt-5">Free AI Review Responder</h1>
+            <p class="text-muted">No credit card, no sign-up. Just paste your review below.</p>
+            
+            <div class="free-tool-box text-start">
+                <label class="fw-bold mb-2">Paste Customer Review:</label>
+                <textarea id="reviewInput" class="form-control mb-3" rows="4" placeholder="Ex: The pizza was great but it arrived cold..."></textarea>
+                
+                <button class="btn btn-google" id="genBtn" onclick="generateFree()">✨ Generate Professional Reply</button>
+                
+                <div id="resultBox" class="mt-4 p-3 bg-light rounded" style="display:none; border-left: 5px solid #1a73e8;">
+                    <p id="resultText" class="mb-0"></p>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <p class="small text-muted">Want to automate this for your whole business? <a href="/pricing" class="fw-bold text-primary">View Plans</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+async function generateFree() {
+    const text = document.getElementById('reviewInput').value;
+    const btn = document.getElementById('genBtn');
+    const resBox = document.getElementById('resultBox');
+    const resText = document.getElementById('resultText');
+
+    if(!text) return alert("Please paste a review!");
+
+    btn.innerText = "AI is thinking...";
+    const res = await fetch('/generate-reply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reviewText: text })
+    });
+    const data = await res.json();
+    
+    resBox.style.display = "block";
+    resText.innerText = data.reply;
+    btn.innerText = "✨ Generate Professional Reply";
+}
+</script>
+</body>
+</html>
