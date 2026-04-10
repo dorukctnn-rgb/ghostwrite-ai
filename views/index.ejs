@@ -4,32 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <% if (page) { %>
-    <title><%= page.title %> | ReviewGhost AI</title>
+    <title><%= page.title %> | ReviewReply</title>
     <meta name="description" content="<%= page.desc %>">
   <% } else { %>
-    <title>ReviewGhost AI - Reply to Google Reviews Instantly</title>
-    <meta name="description" content="AI-powered Google review reply generator. Boost your local SEO ranking by responding to reviews professionally and instantly.">
+    <title>ReviewReply - Reply to Google Reviews with AI</title>
+    <meta name="description" content="AI-powered Google review reply generator. Boost your local SEO ranking instantly.">
   <% } %>
-  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Google Sans','Inter',sans-serif;background:#fff;color:#202124}
-    a{color:#1a73e8;text-decoration:none}
     nav{display:flex;justify-content:space-between;align-items:center;padding:14px 32px;border-bottom:1px solid #e8eaed;position:sticky;top:0;background:#fff;z-index:100}
     .logo{font-size:20px;font-weight:700}
-    .logo .r{color:#4285F4}.logo .e1{color:#EA4335}.logo .v{color:#FBBC05}.logo .i{color:#34A853}.logo .ew{color:#4285F4}.logo .ghost{color:#202124}
+    .logo .r{color:#4285F4}.logo .e1{color:#EA4335}.logo .v{color:#FBBC05}.logo .i{color:#34A853}.logo .rest{color:#202124}
     .nav-links{display:flex;gap:12px;align-items:center}
-    .nav-links a{color:#5f6368;font-size:13px;padding:7px 12px;border-radius:4px;transition:background .15s}
+    .nav-links a{color:#5f6368;font-size:13px;padding:7px 12px;border-radius:4px;transition:background .15s;text-decoration:none}
     .nav-links a:hover{background:#f1f3f4}
-    .btn-blue{background:#1a73e8;color:#fff;border:none;padding:9px 20px;border-radius:4px;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s}
+    .btn-blue{background:#1a73e8;color:#fff;border:none;padding:9px 20px;border-radius:4px;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block}
     .btn-blue:hover{background:#1557b0}
     .hero{text-align:center;padding:64px 20px 44px;background:#f8f9fa;border-bottom:1px solid #e8eaed}
     .hero h1{font-size:clamp(28px,5vw,42px);font-weight:400;color:#202124;margin-bottom:14px;line-height:1.2}
     .hero h1 b{font-weight:700}
-    .hero p{color:#5f6368;font-size:16px;margin-bottom:32px;line-height:1.6}
-    .tool-card{background:#fff;border:1px solid #dadce0;border-radius:12px;padding:32px;max-width:680px;margin:0 auto;box-shadow:0 1px 8px rgba(32,33,36,.1)}
+    .hero p{color:#5f6368;font-size:16px;margin-bottom:0;line-height:1.6}
     .tool-wrap{padding:32px 20px 48px;background:#fff}
+    .tool-card{background:#fff;border:1px solid #dadce0;border-radius:12px;padding:32px;max-width:680px;margin:0 auto;box-shadow:0 1px 8px rgba(32,33,36,.1)}
     .frow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
     @media(max-width:580px){.frow{grid-template-columns:1fr}}
     .flabel{font-size:11px;font-weight:500;color:#5f6368;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
@@ -37,17 +36,16 @@
     input:focus,select:focus,textarea:focus{border-color:#1a73e8;box-shadow:0 0 0 2px rgba(26,115,232,.18)}
     select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235f6368' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
     textarea{min-height:120px;resize:vertical;margin-bottom:16px}
-    .gen-btn{width:100%;padding:13px;background:#1a73e8;border:none;border-radius:6px;color:#fff;font-size:15px;font-weight:500;cursor:pointer;transition:background .15s;letter-spacing:.1px}
+    .gen-btn{width:100%;padding:13px;background:#1a73e8;border:none;border-radius:6px;color:#fff;font-size:15px;font-weight:500;cursor:pointer;transition:background .15s}
     .gen-btn:hover{background:#1557b0}
     .result-box{margin-top:22px;border:1px solid #34A853;border-radius:10px;padding:18px;background:#f0faf4}
     .result-label{font-size:11px;font-weight:600;color:#34A853;text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
     .result-text{font-size:14px;color:#202124;line-height:1.7;white-space:pre-wrap}
-    .copy-btn{margin-top:12px;background:#e8f5e9;border:1px solid #a8d5b5;color:#1e7e34;padding:7px 16px;border-radius:4px;font-size:12px;cursor:pointer;font-weight:500;transition:background .15s}
-    .copy-btn:hover{background:#d0efd4}
+    .copy-btn{margin-top:12px;background:#e8f5e9;border:1px solid #a8d5b5;color:#1e7e34;padding:7px 16px;border-radius:4px;font-size:12px;cursor:pointer;font-weight:500}
     .limit-box{margin-top:22px;border:1px solid #fbbc04;border-radius:10px;padding:18px;background:#fffde7;text-align:center}
     .limit-box p{color:#856404;margin-bottom:14px;font-size:14px}
     .pro-badge{display:inline-flex;align-items:center;gap:5px;background:#e6f4ea;border:1px solid #a8d5b5;color:#137333;padding:4px 12px;border-radius:50px;font-size:12px;font-weight:500}
-    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:680px;margin:0 auto 0;padding:36px 20px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:680px;margin:0 auto;padding:36px 20px}
     @media(max-width:580px){.stats{grid-template-columns:1fr}}
     .stat{text-align:center;padding:24px 12px;border:1px solid #e8eaed;border-radius:10px}
     .stat-n{font-size:30px;font-weight:700}
@@ -66,7 +64,7 @@
     .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:860px;margin:0 auto}
     @media(max-width:720px){.plans{grid-template-columns:1fr}}
     .plan{border:1px solid #dadce0;border-radius:12px;padding:26px;position:relative;background:#fff}
-    .plan.pop{border:2px solid #1a73e8;background:#fff}
+    .plan.pop{border:2px solid #1a73e8}
     .pop-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#1a73e8;color:#fff;font-size:11px;font-weight:600;padding:3px 14px;border-radius:50px;white-space:nowrap}
     .plan-name{font-size:13px;font-weight:500;color:#5f6368;margin-bottom:6px}
     .plan-price{font-size:40px;font-weight:700;color:#202124;line-height:1}
@@ -74,31 +72,14 @@
     .plan-period{font-size:13px;color:#5f6368;margin-bottom:20px;margin-top:2px}
     .plan-feats{list-style:none;margin-bottom:22px;display:flex;flex-direction:column;gap:9px}
     .plan-feats li{display:flex;align-items:center;gap:8px;font-size:13px;color:#3c4043}
-    .plan-feats li i{font-size:14px}
     .plan-btn{width:100%;padding:10px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid #dadce0;background:#fff;color:#1a73e8;transition:background .15s}
     .plan-btn:hover{background:#f1f3f4}
     .plan.pop .plan-btn{background:#1a73e8;color:#fff;border-color:#1a73e8}
     .plan.pop .plan-btn:hover{background:#1557b0}
-    .ext-sec{padding:64px 20px;background:#f8f9fa;border-top:1px solid #e8eaed}
-    .ext-inner{max-width:860px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-    @media(max-width:640px){.ext-inner{grid-template-columns:1fr}}
-    .ext-sec h2{font-size:26px;font-weight:400;color:#202124;margin-bottom:12px}
-    .ext-sec p{color:#5f6368;font-size:14px;line-height:1.7;margin-bottom:20px}
-    .ext-mockup{background:#fff;border:1px solid #dadce0;border-radius:10px;padding:16px}
-    .ext-mockup-label{font-size:11px;color:#5f6368;font-weight:500;margin-bottom:10px}
-    .review-card{border:1px solid #e8eaed;border-radius:8px;padding:12px;margin-bottom:10px}
-    .review-stars{color:#FBBC05;font-size:14px;margin-bottom:4px}
-    .review-stars.bad{color:#EA4335}
-    .review-text{font-size:12px;color:#3c4043;line-height:1.5;margin-bottom:8px}
-    .ai-btn{display:flex;align-items:center;gap:6px;background:#e8f0fe;color:#1a73e8;border:none;border-radius:4px;padding:7px 12px;font-size:12px;font-weight:500;cursor:pointer;width:100%;transition:background .15s}
-    .ai-btn:hover{background:#d2e3fc}
-    .ai-btn.neg{background:#fce8e6;color:#c5221f}
-    .ai-btn.neg:hover{background:#f5c6c6}
-    .ai-dot{width:14px;height:14px;border-radius:3px;background:linear-gradient(135deg,#4285F4 0%,#EA4335 40%,#FBBC05 70%,#34A853 100%);flex-shrink:0}
     .seo-links{padding:40px 20px;border-top:1px solid #e8eaed;text-align:center}
     .seo-links h3{font-size:14px;color:#5f6368;font-weight:400;margin-bottom:14px}
     .seo-grid{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-    .seo-grid a{background:#f1f3f4;border:1px solid #e8eaed;padding:7px 16px;border-radius:50px;color:#3c4043;font-size:13px;transition:all .15s}
+    .seo-grid a{background:#f1f3f4;border:1px solid #e8eaed;padding:7px 16px;border-radius:50px;color:#3c4043;font-size:13px;transition:all .15s;text-decoration:none}
     .seo-grid a:hover{background:#e8f0fe;border-color:#1a73e8;color:#1a73e8}
     footer{text-align:center;padding:32px 20px;border-top:1px solid #e8eaed;color:#9aa0a6;font-size:12px}
   </style>
@@ -106,15 +87,14 @@
 <body>
 
 <nav>
-  <div class="logo"><span class="r">R</span><span class="e1">e</span><span class="v">v</span><span class="i">i</span><span class="ew">ew</span><span class="ghost">Ghost AI</span></div>
+  <div class="logo"><span class="r">R</span><span class="e1">e</span><span class="v">v</span><span class="i">i</span><span class="rest">ewReply</span></div>
   <div class="nav-links">
     <a href="#features">Features</a>
     <a href="#pricing">Pricing</a>
-    <a href="#extension">Extension</a>
     <% if (isPro) { %>
       <span class="pro-badge"><i class="bi bi-check-circle-fill"></i> PRO Active</span>
     <% } else { %>
-      <a href="#pricing"><button class="btn-blue">Get PRO</button></a>
+      <a href="#pricing" class="btn-blue">Get PRO</a>
     <% } %>
   </div>
 </nav>
@@ -124,7 +104,7 @@
     <h1><b><%= page.title %></b></h1>
     <p><%= page.desc %></p>
   <% } else { %>
-    <h1>Reply to Google Reviews<br><b>10× faster with AI</b></h1>
+    <h1>Reply to Google Reviews<br><b>10x faster with AI</b></h1>
     <p>Professional, SEO-optimised replies in seconds.<br>Respond to customers and rank higher on Google Maps.</p>
   <% } %>
 </section>
@@ -147,7 +127,7 @@
       </div>
       <div>
         <div class="flabel">Plan</div>
-        <input type="text" value="<%= isPro ? 'PRO — Unlimited' : 'Free (300 chars)' %>" readonly style="color:#5f6368;background:#f8f9fa;cursor:default">
+        <input type="text" value="<%= isPro ? 'PRO - Unlimited' : 'Free (300 chars)' %>" readonly style="color:#5f6368;background:#f8f9fa;cursor:default">
       </div>
     </div>
     <div class="flabel" style="margin-bottom:5px">Customer review</div>
@@ -158,7 +138,7 @@
   <% if (result === 'FREE_LIMIT') { %>
     <div class="limit-box">
       <p><i class="bi bi-lock-fill"></i> Free plan limit is 300 characters. Your review is longer.</p>
-      <a href="#pricing"><button class="btn-blue">Upgrade to PRO — /month</button></a>
+      <a href="#pricing" class="btn-blue">Upgrade to PRO</a>
     </div>
   <% } else if (result && result.length > 0) { %>
     <div class="result-box">
@@ -171,13 +151,13 @@
 </div>
 
 <div class="stats">
-  <div class="stat"><div class="stat-n" style="color:#4285F4">10×</div><div class="stat-l">Faster replies</div></div>
+  <div class="stat"><div class="stat-n" style="color:#4285F4">10x</div><div class="stat-l">Faster replies</div></div>
   <div class="stat"><div class="stat-n" style="color:#34A853">SEO</div><div class="stat-l">Keyword injection</div></div>
   <div class="stat"><div class="stat-n" style="color:#EA4335">20+</div><div class="stat-l">Languages supported</div></div>
 </div>
 
 <section class="features-sec" id="features">
-  <h2>Why ReviewGhost?</h2>
+  <h2>Why ReviewReply?</h2>
   <div class="features-grid">
     <div class="feature">
       <div class="feature-icon"><i class="bi bi-lightning-charge-fill" style="color:#1a73e8"></i></div>
@@ -202,7 +182,7 @@
     <div class="feature">
       <div class="feature-icon"><i class="bi bi-puzzle-fill" style="color:#1a73e8"></i></div>
       <h3>Chrome Extension</h3>
-      <p>One click inside Google Business Manager. No copy-paste. Reply with AI right where the review is.</p>
+      <p>One click inside Google Business Manager. No copy-paste. Reply right where the review is.</p>
     </div>
     <div class="feature">
       <div class="feature-icon"><i class="bi bi-sliders" style="color:#34A853"></i></div>
@@ -216,7 +196,6 @@
   <h2>Simple, transparent pricing</h2>
   <p class="pricing-sub">Start free. Upgrade when you see results.</p>
   <div class="plans">
-
     <div class="plan">
       <div class="plan-name">Free</div>
       <div class="plan-price"><sup>$</sup>0</div>
@@ -229,7 +208,6 @@
       </ul>
       <button class="plan-btn">Start free</button>
     </div>
-
     <div class="plan pop">
       <div class="pop-tag">Most popular</div>
       <div class="plan-name">Starter</div>
@@ -242,9 +220,8 @@
         <li><i class="bi bi-check-lg" style="color:#34A853"></i> 10+ languages</li>
         <li><i class="bi bi-check-lg" style="color:#34A853"></i> Priority support</li>
       </ul>
-      <button class="plan-btn">Get Starter — /month</button>
+      <button class="plan-btn">Get Starter - /month</button>
     </div>
-
     <div class="plan">
       <div class="plan-name">Pro</div>
       <div class="plan-price"><sup>$</sup>19</div>
@@ -256,31 +233,7 @@
         <li><i class="bi bi-check-lg" style="color:#EA4335"></i> Custom brand tone</li>
         <li><i class="bi bi-check-lg" style="color:#EA4335"></i> API access</li>
       </ul>
-      <button class="plan-btn">Get Pro — /month</button>
-    </div>
-
-  </div>
-</section>
-
-<section class="ext-sec" id="extension">
-  <div class="ext-inner">
-    <div>
-      <h2>No more copy-paste</h2>
-      <p>The ReviewGhost Chrome Extension adds an "Reply with AI" button directly inside Google Business Manager. One click — the reply appears. No switching tabs, no copy-paste, no wasted time.</p>
-      <button class="btn-blue">Add to Chrome — free for PRO users</button>
-    </div>
-    <div class="ext-mockup">
-      <div class="ext-mockup-label">Google Business Manager</div>
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <div class="review-text">"Best pizza in Antalya, the dough was perfect and staff were so friendly!"</div>
-        <button class="ai-btn"><div class="ai-dot"></div>Reply with ReviewGhost AI</button>
-      </div>
-      <div class="review-card">
-        <div class="review-stars bad">★★☆☆☆</div>
-        <div class="review-text">"Waited 40 minutes for our food, not acceptable for a weekday lunch."</div>
-        <button class="ai-btn neg"><div class="ai-dot"></div>Reply with ReviewGhost AI</button>
-      </div>
+      <button class="plan-btn">Get Pro - /month</button>
     </div>
   </div>
 </section>
@@ -295,7 +248,7 @@
   </div>
 </div>
 
-<footer>© 2026 ReviewGhost AI — Built for Google Maps dominance.</footer>
+<footer>© 2026 ReviewReply - Built for Google Maps dominance.</footer>
 
 <script>
 function copyReply(btn) {
