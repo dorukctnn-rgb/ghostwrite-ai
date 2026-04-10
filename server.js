@@ -1,46 +1,4 @@
-﻿
-app.post('/generate-ext', async (req, res) => {
-  const { review, email, tone } = req.body;
-  const isPro = users[email] && users[email].pro === true;
-
-  if (!review || review.trim().length < 5) {
-    return res.json({ error: 'No review text.' });
-  }
-
-  if (!isPro && review.length > 300) {
-    return res.json({ upgrade: true, message: 'Upgrade to PRO for unlimited characters.' });
-  }
-
-  const toneMap = {
-    friendly: 'Be warm, friendly and personal.',
-    professional: 'Be formal, concise and professional.',
-    witty: 'Be clever, a little witty but still respectful.'
-  };
-
-  try {
-    const response = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
-      model: 'llama-3.3-70b-versatile',
-      messages: [
-        { role: 'system', content: 'You are a professional business owner replying to a customer Google review. ' + (toneMap[tone] || toneMap.friendly) + ' Naturally include 1-2 relevant local SEO keywords. Keep reply under 100 words. Output ONLY the reply text.' },
-        { role: 'user', content: review }
-      ],
-      temperature: 0.75,
-      max_tokens: 200
-    }, {
-      headers: {
-        'Authorization': 'Bearer ' + process.env.GROQ_API_KEY,
-        'Content-Type': 'application/json'
-      }
-    });
-
-    const reply = response.data.choices[0].message.content.trim();
-    res.json({ reply });
-
-  } catch (e) {
-    res.json({ error: 'AI error.' });
-  }
-});
-const express = require('express');
+﻿const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const cookieParser = require('cookie-parser');
@@ -59,8 +17,8 @@ const users = {};
 
 const SEO_PAGES = {
   'restaurant': { title: 'Google Review Replies for Restaurants', keyword: 'restaurant', desc: 'AI-powered review reply tool built for restaurant owners. Rank higher on Google Maps.' },
-  'dentist':    { title: 'Google Review Replies for Dentists',    keyword: 'dental clinic', desc: 'Reply to patient reviews professionally. Boost your dental practice on Google Maps.' },
-  'hotel':      { title: 'Google Review Replies for Hotels',      keyword: 'hotel', desc: 'Hotel review reply generator. Respond to guests and rank higher on Google Maps.' },
+  'dentist':    { title: 'Google Review Replies for Dentists', keyword: 'dental clinic', desc: 'Reply to patient reviews professionally. Boost your dental practice on Google Maps.' },
+  'hotel':      { title: 'Google Review Replies for Hotels', keyword: 'hotel', desc: 'Hotel review reply generator. Respond to guests and rank higher on Google Maps.' },
   'negative':   { title: 'How to Reply to Negative Google Reviews', keyword: 'unhappy customer', desc: 'Turn bad reviews into trust signals with professional AI-crafted replies.' }
 };
 
@@ -89,15 +47,13 @@ app.post('/generate', async (req, res) => {
   }
 
   const toneMap = {
-    friendly:     'Be warm, friendly and personal.',
+    friendly: 'Be warm, friendly and personal.',
     professional: 'Be formal, concise and professional.',
-    witty:        'Be clever, a little witty but still respectful.'
+    witty: 'Be clever, a little witty but still respectful.'
   };
 
-  const selectedTone = toneMap[tone] || toneMap['friendly'];
-
   const systemPrompt = 'You are a professional business owner replying to a customer Google review. ' +
-    selectedTone +
+    (toneMap[tone] || toneMap.friendly) +
     ' Naturally include 1-2 relevant keywords to help local SEO. Keep reply under 100 words. Output ONLY the reply text, nothing else.';
 
   try {
@@ -121,7 +77,48 @@ app.post('/generate', async (req, res) => {
 
   } catch (err) {
     console.error('Groq error:', err.message);
-    res.render('index', { result: 'Service error. Please try again in a moment.', review, email: email || '', isPro, page: null });
+    res.render('index', { result: 'Service error. Please try again.', review, email: email || '', isPro, page: null });
+  }
+});
+
+app.post('/generate-ext', async (req, res) => {
+  const { review, email, tone } = req.body;
+  const isPro = users[email] && users[email].pro === true;
+
+  if (!review || review.trim().length < 5) {
+    return res.json({ error: 'No review text.' });
+  }
+
+  if (!isPro && review.length > 300) {
+    return res.json({ upgrade: true, message: 'Upgrade to PRO.' });
+  }
+
+  const toneMap = {
+    friendly: 'Be warm, friendly and personal.',
+    professional: 'Be formal, concise and professional.',
+    witty: 'Be clever, a little witty but still respectful.'
+  };
+
+  try {
+    const response = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
+      model: 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: 'You are a professional business owner replying to a customer Google review. ' + (toneMap[tone] || toneMap.friendly) + ' Naturally include 1-2 relevant local SEO keywords. Keep reply under 100 words. Output ONLY the reply text.' },
+        { role: 'user', content: review }
+      ],
+      temperature: 0.75,
+      max_tokens: 200
+    }, {
+      headers: {
+        'Authorization': 'Bearer ' + process.env.GROQ_API_KEY,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    res.json({ reply: response.data.choices[0].message.content.trim() });
+
+  } catch (e) {
+    res.json({ error: 'AI error.' });
   }
 });
 
@@ -146,4 +143,3 @@ app.get('/pro', (req, res) => {
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, '0.0.0.0', () => console.log('ReviewGhost running on ' + PORT));
-
