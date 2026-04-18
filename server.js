@@ -1,4 +1,4 @@
-﻿const express = require('express');
+const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const cookieParser = require('cookie-parser');
@@ -35,6 +35,7 @@ app.get('/sitemap.xml', (req, res) => {
   res.send(xml);
 });
 
+app.get('/googlefcff82c355800720.html', (req, res) => { res.send('google-site-verification: googlefcff82c355800720.html'); });
 app.get('/robots.txt', (req, res) => {
   res.header('Content-Type', 'text/plain');
   res.send('User-agent: *\nAllow: /\nSitemap: https://www.reviewreply.store/sitemap.xml');
@@ -153,3 +154,4 @@ app.get('/pro', (req, res) => {
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, '0.0.0.0', () => console.log('ReviewReply running on ' + PORT));
+
