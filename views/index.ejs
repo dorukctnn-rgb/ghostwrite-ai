@@ -7,79 +7,161 @@
     <title><%= page.title %> | ReviewReply</title>
     <meta name="description" content="<%= page.desc %>">
   <% } else { %>
-    <title>ReviewReply - Reply to Google Reviews with AI</title>
-    <meta name="description" content="AI-powered Google review reply generator. Boost your local SEO ranking instantly.">
+    <title>ReviewReply - AI Google Review Reply Generator | Rank Higher on Google Maps</title>
+    <meta name="description" content="Free AI-powered Google review reply generator. Reply to customer reviews professionally in seconds. Boost your local SEO and rank higher on Google Maps.">
   <% } %>
-  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&Inter:wght@400;500;700&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <meta name="keywords" content="Google review reply generator, AI review reply, reply to Google reviews, local SEO, Google Maps ranking">
+  <link rel="canonical" href="https://www.reviewreply.store/">
+  <meta property="og:title" content="ReviewReply - AI Google Review Reply Generator">
+  <meta property="og:description" content="Reply to Google reviews 10x faster with AI. Boost your local SEO ranking instantly.">
+  <meta property="og:url" content="https://www.reviewreply.store/">
+  <meta property="og:type" content="website">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ReviewReply",
+    "description": "AI-powered Google review reply generator that helps businesses rank higher on Google Maps",
+    "url": "https://www.reviewreply.store",
+    "applicationCategory": "BusinessApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does replying to Google reviews help SEO?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Google rewards businesses that respond to reviews with higher rankings on Google Maps and local search results."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is ReviewReply free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The free plan allows up to 5 replies per day with 300 character limit. Upgrade to PRO for unlimited replies."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does AI reply to Google reviews?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Paste the review, choose your tone, and our AI generates a professional SEO-optimised reply in under 5 seconds."
+        }
+      }
+    ]
+  }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Google Sans','Inter',sans-serif;background:#fff;color:#202124}
-    nav{display:flex;justify-content:space-between;align-items:center;padding:14px 32px;border-bottom:1px solid #e8eaed;position:sticky;top:0;background:#fff;z-index:100}
-    .logo{font-size:20px;font-weight:700}
+    body{font-family:'Inter',sans-serif;background:#fff;color:#202124}
+    nav{display:flex;justify-content:space-between;align-items:center;padding:14px 40px;border-bottom:1px solid #e8eaed;position:sticky;top:0;background:#fff;z-index:100}
+    .logo{font-size:18px;font-weight:700}
     .logo .r{color:#4285F4}.logo .e1{color:#EA4335}.logo .v{color:#FBBC05}.logo .i{color:#34A853}.logo .rest{color:#202124}
     .nav-links{display:flex;gap:12px;align-items:center}
-    .nav-links a{color:#5f6368;font-size:13px;padding:7px 12px;border-radius:4px;transition:background .15s;text-decoration:none}
+    .nav-links a{color:#5f6368;font-size:13px;padding:7px 12px;border-radius:4px;text-decoration:none;transition:background .15s}
     .nav-links a:hover{background:#f1f3f4}
-    .btn-blue{background:#1a73e8;color:#fff;border:none;padding:9px 20px;border-radius:4px;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block}
+    .btn-blue{background:#1a73e8;color:#fff;border:none;padding:9px 20px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;transition:background .15s}
     .btn-blue:hover{background:#1557b0}
-    .hero{text-align:center;padding:64px 20px 44px;background:#f8f9fa;border-bottom:1px solid #e8eaed}
-    .hero h1{font-size:clamp(28px,5vw,42px);font-weight:400;color:#202124;margin-bottom:14px;line-height:1.2}
-    .hero h1 b{font-weight:700}
-    .hero p{color:#5f6368;font-size:16px;margin-bottom:0;line-height:1.6}
+    .hero{text-align:center;padding:60px 20px 40px;background:#f8f9fa;border-bottom:1px solid #e8eaed}
+    .hero-badge{display:inline-flex;align-items:center;gap:6px;background:#e8f0fe;color:#1a73e8;padding:6px 16px;border-radius:50px;font-size:12px;font-weight:600;margin-bottom:20px;border:1px solid #c5d8fd}
+    .hero h1{font-size:clamp(28px,5vw,46px);font-weight:700;color:#202124;margin-bottom:16px;line-height:1.15}
+    .hero h1 .blue{color:#4285F4}
+    .hero p{color:#5f6368;font-size:16px;margin-bottom:32px;line-height:1.7;max-width:580px;margin-left:auto;margin-right:auto}
     .tool-wrap{padding:32px 20px 48px;background:#fff}
-    .tool-card{background:#fff;border:1px solid #dadce0;border-radius:12px;padding:32px;max-width:680px;margin:0 auto;box-shadow:0 1px 8px rgba(32,33,36,.1)}
+    .tool-card{background:#fff;border:1px solid #dadce0;border-radius:16px;padding:32px;max-width:700px;margin:0 auto;box-shadow:0 2px 12px rgba(32,33,36,.08)}
     .frow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
     @media(max-width:580px){.frow{grid-template-columns:1fr}}
-    .flabel{font-size:11px;font-weight:500;color:#5f6368;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
-    input,select,textarea{width:100%;border:1px solid #dadce0;border-radius:6px;padding:10px 13px;font-size:14px;color:#202124;font-family:inherit;outline:none;transition:border-color .15s,box-shadow .15s;background:#fff}
-    input:focus,select:focus,textarea:focus{border-color:#1a73e8;box-shadow:0 0 0 2px rgba(26,115,232,.18)}
+    .flabel{font-size:11px;font-weight:600;color:#5f6368;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+    input,select,textarea{width:100%;border:1px solid #dadce0;border-radius:8px;padding:10px 13px;font-size:14px;color:#202124;font-family:'Inter',sans-serif;outline:none;transition:border-color .15s;background:#fff}
+    input:focus,select:focus,textarea:focus{border-color:#1a73e8;box-shadow:0 0 0 2px rgba(26,115,232,.15)}
     select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235f6368' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
     textarea{min-height:120px;resize:vertical;margin-bottom:16px}
-    .gen-btn{width:100%;padding:13px;background:#1a73e8;border:none;border-radius:6px;color:#fff;font-size:15px;font-weight:500;cursor:pointer;transition:background .15s}
-    .gen-btn:hover{background:#1557b0}
-    .result-box{margin-top:22px;border:1px solid #34A853;border-radius:10px;padding:18px;background:#f0faf4}
-    .result-label{font-size:11px;font-weight:600;color:#34A853;text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+    .gen-btn{width:100%;padding:14px;background:#1a73e8;border:none;border-radius:8px;color:#fff;font-size:15px;font-weight:600;cursor:pointer;transition:all .15s}
+    .gen-btn:hover{background:#1557b0;transform:translateY(-1px)}
+    .result-box{margin-top:22px;border:1px solid #34A853;border-radius:12px;padding:20px;background:#f0faf4}
+    .result-label{font-size:11px;font-weight:700;color:#34A853;text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
     .result-text{font-size:14px;color:#202124;line-height:1.7;white-space:pre-wrap}
-    .copy-btn{margin-top:12px;background:#e8f5e9;border:1px solid #a8d5b5;color:#1e7e34;padding:7px 16px;border-radius:4px;font-size:12px;cursor:pointer;font-weight:500}
-    .limit-box{margin-top:22px;border:1px solid #fbbc04;border-radius:10px;padding:18px;background:#fffde7;text-align:center}
-    .limit-box p{color:#856404;margin-bottom:14px;font-size:14px}
-    .pro-badge{display:inline-flex;align-items:center;gap:5px;background:#e6f4ea;border:1px solid #a8d5b5;color:#137333;padding:4px 12px;border-radius:50px;font-size:12px;font-weight:500}
-    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:680px;margin:0 auto;padding:36px 20px}
-    @media(max-width:580px){.stats{grid-template-columns:1fr}}
-    .stat{text-align:center;padding:24px 12px;border:1px solid #e8eaed;border-radius:10px}
-    .stat-n{font-size:30px;font-weight:700}
-    .stat-l{font-size:13px;color:#5f6368;margin-top:5px}
-    .features-sec{padding:64px 20px;background:#f8f9fa;border-top:1px solid #e8eaed;border-bottom:1px solid #e8eaed}
-    .features-sec h2{text-align:center;font-size:26px;font-weight:400;color:#202124;margin-bottom:40px}
+    .copy-btn{margin-top:12px;background:#e8f5e9;border:1px solid #a8d5b5;color:#1e7e34;padding:7px 18px;border-radius:6px;font-size:12px;cursor:pointer;font-weight:600;transition:background .15s}
+    .copy-btn:hover{background:#d0efd4}
+    .limit-box{margin-top:22px;border:1px solid #fbbf24;border-radius:12px;padding:20px;background:#fffde7;text-align:center}
+    .limit-box p{color:#856404;margin-bottom:14px;font-size:14px;font-weight:500}
+    .pro-badge{display:inline-flex;align-items:center;gap:5px;background:#e6f4ea;border:1px solid #a8d5b5;color:#137333;padding:4px 12px;border-radius:50px;font-size:12px;font-weight:600}
+    .stats-sec{background:#1a73e8;padding:48px 20px}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:800px;margin:0 auto}
+    @media(max-width:640px){.stats{grid-template-columns:1fr 1fr}}
+    .stat{text-align:center}
+    .stat-n{font-size:32px;font-weight:700;color:#fff}
+    .stat-l{font-size:13px;color:rgba(255,255,255,.8);margin-top:4px}
+    .before-after{padding:60px 20px;background:#fff;border-top:1px solid #e8eaed}
+    .before-after h2{text-align:center;font-size:24px;font-weight:700;color:#202124;margin-bottom:36px}
+    .ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:860px;margin:0 auto}
+    @media(max-width:640px){.ba-grid{grid-template-columns:1fr}}
+    .ba-box{border-radius:12px;padding:22px}
+    .ba-before{background:#fff5f5;border:1px solid #fecaca}
+    .ba-after{background:#f0faf4;border:1px solid #bbf7d0}
+    .ba-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+    .ba-before .ba-label{color:#dc2626}
+    .ba-after .ba-label{color:#16a34a}
+    .ba-stars{color:#FBBC05;font-size:14px;margin-bottom:6px}
+    .ba-review{font-size:12px;color:#5f6368;margin-bottom:10px;font-style:italic}
+    .ba-reply{font-size:13px;color:#202124;line-height:1.7}
+    .testimonials{padding:60px 20px;background:#f8f9fa;border-top:1px solid #e8eaed}
+    .testimonials h2{text-align:center;font-size:24px;font-weight:700;margin-bottom:36px}
+    .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto}
+    @media(max-width:720px){.testi-grid{grid-template-columns:1fr}}
+    .testi{background:#fff;border:1px solid #e8eaed;border-radius:12px;padding:22px}
+    .testi-stars{color:#FBBC05;font-size:14px;margin-bottom:10px}
+    .testi-text{font-size:13px;color:#3c4043;line-height:1.7;margin-bottom:14px}
+    .testi-author{font-size:12px;font-weight:600;color:#5f6368}
+    .features-sec{padding:64px 20px}
+    .features-sec h2{text-align:center;font-size:24px;font-weight:700;color:#202124;margin-bottom:48px}
     .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:980px;margin:0 auto}
     @media(max-width:720px){.features-grid{grid-template-columns:1fr}}
-    .feature{background:#fff;border:1px solid #e8eaed;border-radius:10px;padding:24px}
-    .feature-icon{font-size:22px;margin-bottom:12px}
-    .feature h3{font-size:15px;font-weight:500;color:#202124;margin-bottom:6px}
+    .feature{background:#fff;border:1px solid #e8eaed;border-radius:12px;padding:24px}
+    .feature-icon{font-size:24px;margin-bottom:12px}
+    .feature h3{font-size:15px;font-weight:600;color:#202124;margin-bottom:6px}
     .feature p{color:#5f6368;font-size:13px;line-height:1.6}
-    .pricing-sec{padding:64px 20px;background:#fff}
-    .pricing-sec h2{text-align:center;font-size:26px;font-weight:400;color:#202124;margin-bottom:8px}
+    .pricing-sec{padding:64px 20px;background:#f8f9fa;border-top:1px solid #e8eaed}
+    .pricing-sec h2{text-align:center;font-size:24px;font-weight:700;margin-bottom:8px}
     .pricing-sub{text-align:center;color:#5f6368;font-size:14px;margin-bottom:40px}
     .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:860px;margin:0 auto}
     @media(max-width:720px){.plans{grid-template-columns:1fr}}
-    .plan{border:1px solid #dadce0;border-radius:12px;padding:26px;position:relative;background:#fff}
+    .plan{border:1px solid #dadce0;border-radius:14px;padding:28px;background:#fff;position:relative}
     .plan.pop{border:2px solid #1a73e8}
-    .pop-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#1a73e8;color:#fff;font-size:11px;font-weight:600;padding:3px 14px;border-radius:50px;white-space:nowrap}
-    .plan-name{font-size:13px;font-weight:500;color:#5f6368;margin-bottom:6px}
-    .plan-price{font-size:40px;font-weight:700;color:#202124;line-height:1}
+    .pop-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#1a73e8;color:#fff;font-size:11px;font-weight:700;padding:3px 16px;border-radius:50px;white-space:nowrap}
+    .plan-name{font-size:13px;font-weight:600;color:#5f6368;margin-bottom:6px}
+    .plan-price{font-size:42px;font-weight:700;color:#202124;line-height:1}
     .plan-price sup{font-size:20px;vertical-align:super;font-weight:500}
     .plan-period{font-size:13px;color:#5f6368;margin-bottom:20px;margin-top:2px}
-    .plan-feats{list-style:none;margin-bottom:22px;display:flex;flex-direction:column;gap:9px}
+    .plan-feats{list-style:none;margin-bottom:24px;display:flex;flex-direction:column;gap:10px}
     .plan-feats li{display:flex;align-items:center;gap:8px;font-size:13px;color:#3c4043}
-    .plan-btn{width:100%;padding:10px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid #dadce0;background:#fff;color:#1a73e8;transition:background .15s}
+    .plan-feats li .ck{color:#34A853;font-weight:700}
+    .plan-btn{width:100%;padding:11px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid #dadce0;background:#fff;color:#1a73e8;transition:all .15s;display:block;text-align:center;text-decoration:none}
     .plan-btn:hover{background:#f1f3f4}
     .plan.pop .plan-btn{background:#1a73e8;color:#fff;border-color:#1a73e8}
     .plan.pop .plan-btn:hover{background:#1557b0}
-    .seo-links{padding:40px 20px;border-top:1px solid #e8eaed;text-align:center}
-    .seo-links h3{font-size:14px;color:#5f6368;font-weight:400;margin-bottom:14px}
+    .faq-sec{padding:64px 20px;max-width:720px;margin:0 auto}
+    .faq-sec h2{text-align:center;font-size:24px;font-weight:700;margin-bottom:40px}
+    .faq{border-bottom:1px solid #e8eaed;padding:20px 0}
+    .faq h3{font-size:15px;font-weight:600;color:#202124;margin-bottom:8px}
+    .faq p{color:#5f6368;font-size:14px;line-height:1.7}
+    .seo-links{padding:40px 20px;border-top:1px solid #e8eaed;text-align:center;background:#f8f9fa}
+    .seo-links h3{font-size:14px;color:#5f6368;font-weight:500;margin-bottom:14px}
     .seo-grid{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-    .seo-grid a{background:#f1f3f4;border:1px solid #e8eaed;padding:7px 16px;border-radius:50px;color:#3c4043;font-size:13px;transition:all .15s;text-decoration:none}
+    .seo-grid a{background:#fff;border:1px solid #e8eaed;padding:7px 16px;border-radius:50px;color:#3c4043;font-size:13px;text-decoration:none;transition:all .15s}
     .seo-grid a:hover{background:#e8f0fe;border-color:#1a73e8;color:#1a73e8}
     footer{text-align:center;padding:32px 20px;border-top:1px solid #e8eaed;color:#9aa0a6;font-size:12px}
   </style>
@@ -92,7 +174,7 @@
     <a href="#features">Features</a>
     <a href="#pricing">Pricing</a>
     <% if (isPro) { %>
-      <span class="pro-badge"><i class="bi bi-check-circle-fill"></i> PRO Active</span>
+      <span class="pro-badge">PRO Active</span>
     <% } else { %>
       <a href="#pricing" class="btn-blue">Get PRO</a>
     <% } %>
@@ -100,12 +182,13 @@
 </nav>
 
 <section class="hero">
+  <div class="hero-badge">&#x2605; Rank #1 on Google Maps</div>
   <% if (page) { %>
-    <h1><b><%= page.title %></b></h1>
+    <h1><%= page.title %></h1>
     <p><%= page.desc %></p>
   <% } else { %>
-    <h1>Reply to Google Reviews<br><b>10x faster with AI</b></h1>
-    <p>Professional, SEO-optimised replies in seconds.<br>Respond to customers and rank higher on Google Maps.</p>
+    <h1>Reply to Google Reviews<br><span class="blue">10x Faster with AI</span></h1>
+    <p>Professional, SEO-optimised replies in seconds. Respond to customers, boost your local ranking, and never stare at a blank screen again.</p>
   <% } %>
 </section>
 
@@ -123,6 +206,7 @@
           <option value="friendly">Friendly</option>
           <option value="professional">Professional</option>
           <option value="witty">Witty</option>
+          <option value="empathetic">Empathetic</option>
         </select>
       </div>
       <div>
@@ -132,62 +216,104 @@
     </div>
     <div class="flabel" style="margin-bottom:5px">Customer review</div>
     <textarea name="review" placeholder="Paste the Google review here..."><%= review %></textarea>
-    <button type="submit" class="gen-btn"><i class="bi bi-magic"></i> Generate SEO-Optimised Reply</button>
+    <button type="submit" class="gen-btn">Generate SEO-Optimised Reply</button>
   </form>
 
   <% if (result === 'FREE_LIMIT') { %>
     <div class="limit-box">
-      <p><i class="bi bi-lock-fill"></i> Free plan limit is 300 characters. Your review is longer.</p>
+      <p>Free plan limit is 300 characters. Your review is longer.</p>
       <a href="#pricing" class="btn-blue">Upgrade to PRO</a>
     </div>
   <% } else if (result && result.length > 0) { %>
     <div class="result-box">
-      <div class="result-label"><i class="bi bi-check-circle-fill"></i> Your AI Reply</div>
+      <div class="result-label">&#x2713; Your AI Reply</div>
       <div class="result-text" id="replyText"><%= result %></div>
-      <button class="copy-btn" onclick="copyReply(this)"><i class="bi bi-clipboard"></i> Copy reply</button>
+      <button class="copy-btn" onclick="copyReply(this)">Copy reply</button>
     </div>
   <% } %>
 </div>
 </div>
 
-<div class="stats">
-  <div class="stat"><div class="stat-n" style="color:#4285F4">10x</div><div class="stat-l">Faster replies</div></div>
-  <div class="stat"><div class="stat-n" style="color:#34A853">SEO</div><div class="stat-l">Keyword injection</div></div>
-  <div class="stat"><div class="stat-n" style="color:#EA4335">20+</div><div class="stat-l">Languages supported</div></div>
-</div>
+<section class="stats-sec">
+  <div class="stats">
+    <div class="stat"><div class="stat-n">10x</div><div class="stat-l">Faster replies</div></div>
+    <div class="stat"><div class="stat-n">SEO</div><div class="stat-l">Keyword injection</div></div>
+    <div class="stat"><div class="stat-n">20+</div><div class="stat-l">Languages</div></div>
+    <div class="stat"><div class="stat-n"></div><div class="stat-l">Per month only</div></div>
+  </div>
+</section>
+
+<section class="before-after">
+  <h2>See the difference</h2>
+  <div class="ba-grid">
+    <div class="ba-box ba-before">
+      <div class="ba-label">Without ReviewReply</div>
+      <div class="ba-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div class="ba-review">"Amazing food and great service!"</div>
+      <div class="ba-reply" style="color:#dc2626">No reply... (Google penalises this)</div>
+    </div>
+    <div class="ba-box ba-after">
+      <div class="ba-label">With ReviewReply</div>
+      <div class="ba-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div class="ba-review">"Amazing food and great service!"</div>
+      <div class="ba-reply">"Thank you so much! We're thrilled you enjoyed your visit to our restaurant. Our team works hard every day to deliver great food and warm service. We look forward to welcoming you back soon!"</div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <h2>Trusted by local businesses worldwide</h2>
+  <div class="testi-grid">
+    <div class="testi">
+      <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div class="testi-text">"I used to spend 30 minutes replying to reviews every morning. Now it takes 2 minutes. My Google Maps ranking went up within a month."</div>
+      <div class="testi-author">Marco R. — Restaurant Owner, Italy</div>
+    </div>
+    <div class="testi">
+      <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div class="testi-text">"The negative review mode is incredible. A patient left a bad review and the AI wrote such a professional, empathetic response. Got 3 new patients that week."</div>
+      <div class="testi-author">Dr. Sarah K. — Dental Clinic, UK</div>
+    </div>
+    <div class="testi">
+      <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div class="testi-text">"Our hotel gets reviews in 8 different languages. ReviewReply handles all of them perfectly. Best  I spend every month."</div>
+      <div class="testi-author">Ahmed B. — Hotel Manager, Turkey</div>
+    </div>
+  </div>
+</section>
 
 <section class="features-sec" id="features">
   <h2>Why ReviewReply?</h2>
   <div class="features-grid">
     <div class="feature">
-      <div class="feature-icon"><i class="bi bi-lightning-charge-fill" style="color:#1a73e8"></i></div>
+      <div class="feature-icon">&#9889;</div>
       <h3>Instant replies</h3>
       <p>Professional, human-sounding replies in under 5 seconds. No blank screen, no writers block.</p>
     </div>
     <div class="feature">
-      <div class="feature-icon"><i class="bi bi-graph-up-arrow" style="color:#34A853"></i></div>
+      <div class="feature-icon">&#128200;</div>
       <h3>Local SEO boost</h3>
       <p>Google rewards businesses that respond to reviews. Our AI weaves in local keywords to help you rank higher on Maps.</p>
     </div>
     <div class="feature">
-      <div class="feature-icon"><i class="bi bi-emoji-angry-fill" style="color:#EA4335"></i></div>
+      <div class="feature-icon">&#128545;</div>
       <h3>Negative review mode</h3>
-      <p>Turn bad reviews into trust signals with empathetic, professional responses that future customers see.</p>
+      <p>Turn bad reviews into trust signals with empathetic, solution-focused responses that future customers see.</p>
     </div>
     <div class="feature">
-      <div class="feature-icon"><i class="bi bi-translate" style="color:#FBBC05"></i></div>
+      <div class="feature-icon">&#127758;</div>
       <h3>Multi-language</h3>
       <p>Tourists leave reviews in German, Russian, Arabic. Reply in their language automatically.</p>
     </div>
     <div class="feature">
-      <div class="feature-icon"><i class="bi bi-puzzle-fill" style="color:#1a73e8"></i></div>
+      <div class="feature-icon">&#127823;</div>
       <h3>Chrome Extension</h3>
-      <p>One click inside Google Business Manager. No copy-paste. Reply right where the review is.</p>
+      <p>One click inside Google Business Manager. No copy-paste. Reply right where the review is. (PRO)</p>
     </div>
     <div class="feature">
-      <div class="feature-icon"><i class="bi bi-sliders" style="color:#34A853"></i></div>
-      <h3>Tone control</h3>
-      <p>Choose Friendly, Professional, or Witty. Every reply matches your brand voice perfectly.</p>
+      <div class="feature-icon">&#127908;</div>
+      <h3>4 tone options</h3>
+      <p>Friendly, Professional, Witty, or Empathetic. Every reply matches your brand voice perfectly.</p>
     </div>
   </div>
 </section>
@@ -201,12 +327,12 @@
       <div class="plan-price"><sup>$</sup>0</div>
       <div class="plan-period">forever</div>
       <ul class="plan-feats">
-        <li><i class="bi bi-check-lg" style="color:#4285F4"></i> 5 replies per day</li>
-        <li><i class="bi bi-check-lg" style="color:#4285F4"></i> Up to 300 characters</li>
-        <li><i class="bi bi-check-lg" style="color:#4285F4"></i> 3 tone options</li>
-        <li><i class="bi bi-check-lg" style="color:#4285F4"></i> 1 language</li>
+        <li><span class="ck">&#x2713;</span> 5 replies per day</li>
+        <li><span class="ck">&#x2713;</span> Up to 300 characters</li>
+        <li><span class="ck">&#x2713;</span> 3 tone options</li>
+        <li><span class="ck">&#x2713;</span> 1 language</li>
       </ul>
-      <button class="plan-btn">Start free</button>
+      <button class="plan-btn" onclick="document.querySelector('textarea[name=review]').focus()">Start free</button>
     </div>
     <div class="plan pop">
       <div class="pop-tag">Most popular</div>
@@ -214,27 +340,51 @@
       <div class="plan-price"><sup>$</sup>9</div>
       <div class="plan-period">per month</div>
       <ul class="plan-feats">
-        <li><i class="bi bi-check-lg" style="color:#34A853"></i> 100 replies per month</li>
-        <li><i class="bi bi-check-lg" style="color:#34A853"></i> Unlimited characters</li>
-        <li><i class="bi bi-check-lg" style="color:#34A853"></i> SEO keyword injection</li>
-        <li><i class="bi bi-check-lg" style="color:#34A853"></i> 10+ languages</li>
-        <li><i class="bi bi-check-lg" style="color:#34A853"></i> Priority support</li>
+        <li><span class="ck">&#x2713;</span> 100 replies per month</li>
+        <li><span class="ck">&#x2713;</span> Unlimited characters</li>
+        <li><span class="ck">&#x2713;</span> SEO keyword injection</li>
+        <li><span class="ck">&#x2713;</span> 10+ languages</li>
+        <li><span class="ck">&#x2713;</span> Priority support</li>
       </ul>
-      <button class="plan-btn">Get Starter - /month</button>
+      <a href="https://dorukctn.gumroad.com/l/mktng" target="_blank" class="plan-btn">Get Starter - /month</a>
     </div>
     <div class="plan">
       <div class="plan-name">Pro</div>
       <div class="plan-price"><sup>$</sup>19</div>
       <div class="plan-period">per month</div>
       <ul class="plan-feats">
-        <li><i class="bi bi-check-lg" style="color:#EA4335"></i> Unlimited replies</li>
-        <li><i class="bi bi-check-lg" style="color:#EA4335"></i> Chrome Extension</li>
-        <li><i class="bi bi-check-lg" style="color:#EA4335"></i> Negative review mode</li>
-        <li><i class="bi bi-check-lg" style="color:#EA4335"></i> Custom brand tone</li>
-        <li><i class="bi bi-check-lg" style="color:#EA4335"></i> API access</li>
+        <li><span class="ck">&#x2713;</span> Unlimited replies</li>
+        <li><span class="ck">&#x2713;</span> Chrome Extension</li>
+        <li><span class="ck">&#x2713;</span> Negative review mode</li>
+        <li><span class="ck">&#x2713;</span> Custom brand tone</li>
+        <li><span class="ck">&#x2713;</span> API access</li>
       </ul>
-      <button class="plan-btn">Get Pro - /month</button>
+      <a href="https://dorukctn.gumroad.com/l/jtefs" target="_blank" class="plan-btn">Get Pro - /month</a>
     </div>
+  </div>
+</section>
+
+<section class="faq-sec">
+  <h2>Frequently asked questions</h2>
+  <div class="faq">
+    <h3>Does replying to Google reviews help SEO?</h3>
+    <p>Yes. Google rewards businesses that respond to reviews with higher rankings on Google Maps and local search results. Consistent replies signal an active, trustworthy business.</p>
+  </div>
+  <div class="faq">
+    <h3>Is ReviewReply free to use?</h3>
+    <p>Yes. The free plan allows 5 replies per day with up to 300 characters. Upgrade to PRO for unlimited replies and characters.</p>
+  </div>
+  <div class="faq">
+    <h3>How does the AI write the reply?</h3>
+    <p>Paste the review, choose your tone, and our AI generates a professional SEO-optimised reply in under 5 seconds. It naturally includes local keywords to boost your ranking.</p>
+  </div>
+  <div class="faq">
+    <h3>Does it work for negative reviews?</h3>
+    <p>Yes. Choose the Empathetic tone and the AI crafts a professional, solution-focused response that turns bad reviews into trust signals.</p>
+  </div>
+  <div class="faq">
+    <h3>What languages does it support?</h3>
+    <p>ReviewReply supports 20+ languages including English, Turkish, German, French, Spanish, Arabic, Russian, and more.</p>
   </div>
 </section>
 
@@ -248,15 +398,17 @@
   </div>
 </div>
 
-<footer>© 2026 ReviewReply - Built for Google Maps dominance.</footer>
+<footer>
+  <p>© 2026 ReviewReply.store — AI Google Review Reply Generator. Built for local SEO dominance.</p>
+</footer>
 
 <script>
 function copyReply(btn) {
   var t = document.getElementById('replyText');
   if (t) {
     navigator.clipboard.writeText(t.innerText).then(function() {
-      btn.innerHTML = '<i class="bi bi-check-lg"></i> Copied!';
-      setTimeout(function(){ btn.innerHTML = '<i class="bi bi-clipboard"></i> Copy reply'; }, 2000);
+      btn.textContent = 'Copied!';
+      setTimeout(function(){ btn.textContent = 'Copy reply'; }, 2000);
     });
   }
 }
