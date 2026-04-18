@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { width: 280px; padding: 18px; font-family: 'Google Sans', Inter, sans-serif; color: #202124; }
+    .logo { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+    .logo .r{color:#4285F4}.logo .e1{color:#EA4335}.logo .v{color:#FBBC05}.logo .i{color:#34A853}.logo .rest{color:#202124}
+    label { font-size: 11px; font-weight: 500; color: #5f6368; text-transform: uppercase; letter-spacing: .5px; display: block; margin-bottom: 4px; }
+    input, select { width: 100%; border: 1px solid #dadce0; border-radius: 4px; padding: 8px 10px; font-size: 13px; margin-bottom: 12px; outline: none; font-family: inherit; box-sizing: border-box; }
+    input:focus, select:focus { border-color: #1a73e8; }
+    button { width: 100%; padding: 9px; background: #1a73e8; color: #fff; border: none; border-radius: 4px; font-size: 13px; font-weight: 500; cursor: pointer; }
+    button:hover { background: #1557b0; }
+    .saved { color: #34A853; font-size: 12px; text-align: center; margin-top: 8px; display: none; }
+    .upgrade { margin-top: 12px; text-align: center; font-size: 12px; color: #5f6368; }
+    .upgrade a { color: #1a73e8; }
+  </style>
+</head>
+<body>
+  <div class="logo"><span class="r">R</span><span class="e1">e</span><span class="v">v</span><span class="i">i</span><span class="rest">ewReply AI</span></div>
+
+  <label>Your email</label>
+  <input type="email" id="email" placeholder="you@business.com">
+
+  <label>Default tone</label>
+  <select id="tone">
+    <option value="friendly">Friendly</option>
+    <option value="professional">Professional</option>
+    <option value="witty">Witty</option>
+    <option value="empathetic">Empathetic</option>
+  </select>
+
+  <button onclick="save()">Save settings</button>
+  <div class="saved" id="saved">Saved!</div>
+
+  <div class="upgrade">
+    <a href="https://www.reviewreply.store/#pricing" target="_blank">Upgrade to PRO for unlimited replies</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

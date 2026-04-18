@@ -1,0 +1,40 @@
+﻿.rr-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #e8f0fe;
+  color: #1a73e8;
+  border: 1px solid #c5d8fd;
+  border-radius: 4px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 8px;
+  font-family: 'Google Sans', sans-serif;
+  transition: background 0.15s;
+}
+.rr-btn:hover { background: #d2e3fc; }
+.rr-btn:disabled { opacity: 0.7; cursor: default; }
+
+.rr-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1a73e8;
+  flex-shrink: 0;
+}
+.rr-green { background: #34A853; }
+.rr-yellow { background: #FBBC05; }
+
+.rr-output {
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: #f0faf4;
+  border: 1px solid #a8d5b5;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #202124;
+  white-space: pre-wrap;
+}
