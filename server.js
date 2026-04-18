@@ -136,8 +136,9 @@ app.post('/generate-ext', async (req, res) => {
 app.post('/webhook', (req, res) => {
   try {
     const event = req.body;
-    if (event.meta && event.meta.event_name === 'order_created') {
-      const email = event.data.attributes.user_email;
+    console.log('WEBHOOK RECEIVED:', JSON.stringify(event));
+    const email = event.email || (event.data && event.data.attributes && event.data.attributes.user_email);
+    if (email) {
       users[email] = { pro: true };
       console.log('NEW PRO USER:', email);
     }
@@ -154,4 +155,5 @@ app.get('/pro', (req, res) => {
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, '0.0.0.0', () => console.log('ReviewReply running on ' + PORT));
+
 
