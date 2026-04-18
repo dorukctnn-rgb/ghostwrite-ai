@@ -24,14 +24,15 @@ const SEO_PAGES = {
 
 app.get('/sitemap.xml', (req, res) => {
   res.header('Content-Type', 'application/xml');
-  res.send(<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.reviewreply.store/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
-  <url><loc>https://www.reviewreply.store/restaurant-reviews</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.reviewreply.store/dentist-reviews</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.reviewreply.store/hotel-reviews</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.reviewreply.store/negative-reviews</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-</urlset>);
+  var xml = '<?xml version="1.0" encoding="UTF-8"?>';
+  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+  xml += '<url><loc>https://www.reviewreply.store/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>';
+  xml += '<url><loc>https://www.reviewreply.store/restaurant-reviews</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>';
+  xml += '<url><loc>https://www.reviewreply.store/dentist-reviews</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>';
+  xml += '<url><loc>https://www.reviewreply.store/hotel-reviews</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>';
+  xml += '<url><loc>https://www.reviewreply.store/negative-reviews</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>';
+  xml += '</urlset>';
+  res.send(xml);
 });
 
 app.get('/robots.txt', (req, res) => {
@@ -63,14 +64,14 @@ app.post('/generate', async (req, res) => {
     return res.render('index', { result: 'FREE_LIMIT', review, email: email || '', isPro: false, page: null });
   }
 
-  const toneMap = {
+  var toneMap = {
     friendly: 'Be warm, friendly and personal.',
     professional: 'Be formal, concise and professional.',
     witty: 'Be clever, a little witty but still respectful.',
     empathetic: 'Be deeply empathetic, apologetic where needed, and solution-focused.'
   };
 
-  const systemPrompt = 'You are a professional business owner replying to a customer Google review. ' +
+  var systemPrompt = 'You are a professional business owner replying to a customer Google review. ' +
     (toneMap[tone] || toneMap.friendly) +
     ' Naturally include 1-2 relevant local SEO keywords. Keep reply under 100 words. Output ONLY the reply text, nothing else.';
 
@@ -106,7 +107,7 @@ app.post('/generate-ext', async (req, res) => {
   if (!review || review.trim().length < 5) return res.json({ error: 'No review text.' });
   if (!isPro && review.length > 300) return res.json({ upgrade: true });
 
-  const toneMap = {
+  var toneMap = {
     friendly: 'Be warm, friendly and personal.',
     professional: 'Be formal, concise and professional.',
     witty: 'Be clever, a little witty but still respectful.',
