@@ -11,7 +11,11 @@
     <meta name="description" content="Free AI-powered Google review reply generator. Reply to customer reviews professionally in seconds. Boost your local SEO and rank higher on Google Maps.">
   <% } %>
   <meta name="keywords" content="Google review reply generator, AI review reply, reply to Google reviews, local SEO, Google Maps ranking">
+  <% if (page) { %>
+  <link rel="canonical" href="https://www.reviewreply.store/<%= Object.keys({restaurant:{},dentist:{},hotel:{},negative:{}}).find(k => page.title.toLowerCase().includes(k)) %>-reviews">
+  <% } else { %>
   <link rel="canonical" href="https://www.reviewreply.store/">
+  <% } %>
   <meta property="og:title" content="ReviewReply - AI Google Review Reply Generator">
   <meta property="og:description" content="Reply to Google reviews 10x faster with AI. Boost your local SEO ranking instantly.">
   <meta property="og:url" content="https://www.reviewreply.store/">
@@ -415,5 +419,6 @@ function copyReply(btn) {
 </script>
 </body>
 </html>
+
 
 
