@@ -157,3 +157,19 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, '0.0.0.0', () => console.log('ReviewReply running on ' + PORT));
 
 
+
+app.get('/blog', (req, res) => {
+  res.render('blog-index', {});
+});
+
+app.get('/blog/how-to-reply-to-negative-google-reviews', (req, res) => {
+  res.render('blog-negative-reviews', {});
+});
+
+app.get('/blog/google-review-response-examples', (req, res) => {
+  res.render('blog-review-examples', {});
+});
+
+app.get('/blog/does-responding-to-reviews-help-seo', (req, res) => {
+  res.render('blog-reviews-seo', {});
+});
