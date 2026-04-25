@@ -31,6 +31,10 @@ app.get('/sitemap.xml', (req, res) => {
   xml += '<url><loc>https://www.reviewreply.store/dentist-reviews</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>';
   xml += '<url><loc>https://www.reviewreply.store/hotel-reviews</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>';
   xml += '<url><loc>https://www.reviewreply.store/negative-reviews</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>';
+  xml += '<url><loc>https://www.reviewreply.store/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>';
+  xml += '<url><loc>https://www.reviewreply.store/blog/how-to-reply-to-negative-google-reviews</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>';
+  xml += '<url><loc>https://www.reviewreply.store/blog/google-review-response-examples</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>';
+  xml += '<url><loc>https://www.reviewreply.store/blog/does-responding-to-reviews-help-seo</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>';
   xml += '</urlset>';
   res.send(xml);
 });
@@ -189,3 +193,4 @@ app.get('/blog/google-review-response-examples', (req, res) => {
 app.get('/blog/does-responding-to-reviews-help-seo', (req, res) => {
   res.render('blog-reviews-seo', {});
 });
+
