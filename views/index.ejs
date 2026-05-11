@@ -12,8 +12,10 @@
   <% } %>
   <meta name="keywords" content="Google review reply generator, AI review reply, reply to Google reviews, local SEO, Google Maps ranking">
   <% if (page) { %>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="canonical" href="https://www.reviewreply.store/<%= Object.keys({restaurant:{},dentist:{},hotel:{},negative:{}}).find(k => page.title.toLowerCase().includes(k)) %>-reviews">
   <% } else { %>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="canonical" href="https://www.reviewreply.store/">
   <% } %>
   <meta property="og:title" content="ReviewReply - AI Google Review Reply Generator">
@@ -419,6 +421,7 @@ function copyReply(btn) {
 </script>
 </body>
 </html>
+
 
 
 
