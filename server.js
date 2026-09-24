@@ -16,33 +16,61 @@ app.use(cookieParser());
 const users = {};
 
 const SEO_PAGES = {
-  'restaurant': { title: 'Google Review Replies for Restaurants', keyword: 'restaurant', desc: 'AI-powered review reply tool built for restaurant owners. Rank higher on Google Maps instantly.' },
-  'dentist':    { title: 'Google Review Replies for Dentists', keyword: 'dental clinic', desc: 'Reply to patient reviews professionally. Boost your dental practice ranking on Google Maps.' },
-  'hotel':      { title: 'Google Review Replies for Hotels', keyword: 'hotel', desc: 'Hotel review reply generator. Respond to guests and rank higher on Google Maps.' },
-  'negative':   { title: 'How to Reply to Negative Google Reviews', keyword: 'unhappy customer', desc: 'Turn bad reviews into trust signals with professional AI-crafted replies.' }
+  'restaurant': {
+    slug: 'restaurant', title: 'Google Review Replies for Restaurants', keyword: 'restaurant',
+    desc: 'Reply to diners\' Google reviews in seconds: thank regulars, answer complaints about waits or orders, and show future guests you listen.',
+    tipsTitle: 'What a good restaurant reply does',
+    tips: [
+      'Mention the dish, the occasion or the staff member the guest named, so the reply is clearly not a template.',
+      'For waits, wrong orders or cold food: apologise once, say what you changed, and invite them back by name.',
+      'Never argue about taste in public. Offer to talk offline and give a direct contact.',
+      'Reply to the good ones too. Regulars notice, and future diners read the tone of the whole page.'
+    ]
+  },
+  'dentist': {
+    slug: 'dentist', title: 'Google Review Replies for Dentists', keyword: 'dental clinic',
+    desc: 'Reply to patient reviews professionally and without revealing anything about their care. Friendly for praise, careful for complaints.',
+    tipsTitle: 'Replying to patient reviews safely',
+    tips: [
+      'Do not confirm that the reviewer is a patient or mention any treatment. Health privacy rules (such as HIPAA in the US or GDPR in the UK and EU) still apply in public replies.',
+      'Thank people for feedback in general terms, and invite them to call the practice to discuss anything specific.',
+      'For complaints about waiting times or billing, acknowledge the frustration and give a named contact, without discussing details.',
+      'Always read the generated reply before posting and remove anything that could identify a patient.'
+    ]
+  },
+  'hotel': {
+    slug: 'hotel', title: 'Google Review Replies for Hotels', keyword: 'hotel',
+    desc: 'Reply to guest reviews in their own language, thank them for specifics, and handle complaints about rooms, noise or check-in calmly.',
+    tipsTitle: 'What a good hotel reply does',
+    tips: [
+      'Reply in the guest\'s language. ReviewReply writes in the language of the review.',
+      'Name what they enjoyed (the view, breakfast, a staff member) and invite them back for a specific reason.',
+      'For complaints, say what was fixed (the air conditioning, the noise policy) rather than only apologising.',
+      'Keep it short. Future guests skim replies to judge how you handle problems.'
+    ]
+  },
+  'negative': {
+    slug: 'negative', title: 'How to Reply to Negative Google Reviews', keyword: 'unhappy customer',
+    desc: 'Write calm, specific replies to negative Google reviews. Apologise once, explain what changed, and take the conversation offline.',
+    tipsTitle: 'The four parts of a good reply to a bad review',
+    tips: [
+      'Thank them for the feedback, even when it stings.',
+      'Apologise for their experience once, without excuses.',
+      'Say what you have done or will do about it, specifically.',
+      'Offer a direct contact to put it right, and leave it there. Do not argue in public.'
+    ]
+  }
 };
+
+const SITEMAP_PATHS = ['/', '/restaurant-reviews', '/dentist-reviews', '/hotel-reviews', '/negative-reviews', '/blog',
+  '/blog/how-to-respond-to-google-reviews', '/blog/how-to-reply-to-negative-google-reviews', '/blog/negative-review-response-templates',
+  '/blog/google-review-response-examples', '/blog/google-review-reply-examples-restaurants', '/blog/does-responding-to-reviews-help-seo'];
 
 app.get('/sitemap.xml', (req, res) => {
   res.header('Content-Type', 'application/xml');
-  var xml = '<?xml version="1.0" encoding="UTF-8"?>';
-  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-  xml += '<url><loc>https://www.reviewreply.store/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>';
-  xml += '<url><loc>https://www.reviewreply.store/restaurant-reviews</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>';
-  xml += '<url><loc>https://www.reviewreply.store/dentist-reviews</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>';
-  xml += '<url><loc>https://www.reviewreply.store/hotel-reviews</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>';
-  xml += '<url><loc>https://www.reviewreply.store/negative-reviews</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>';
-  xml += '<url><loc>https://www.reviewreply.store/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>';
-  xml += '<url><loc>https://www.reviewreply.store/blog/how-to-reply-to-negative-google-reviews</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>';
-  xml += '<url><loc>https://www.reviewreply.store/blog/google-review-response-examples</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>';
-  xml += '<url><loc>https://www.reviewreply.store/blog/does-responding-to-reviews-help-seo</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>';
-  xml += '<url><loc>https://www.reviewreply.store/blog/how-to-respond-to-google-reviews</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>';
-  xml += '<url><loc>https://www.reviewreply.store/blog/google-review-reply-examples-restaurants</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>';
-  xml += '<url><loc>https://www.reviewreply.store/blog/negative-review-response-templates</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>';
-  xml += '<url><loc>https://www.reviewreply.store/blog/how-to-respond-to-google-reviews</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>';
-  xml += '<url><loc>https://www.reviewreply.store/blog/google-review-reply-examples-restaurants</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>';
-  xml += '<url><loc>https://www.reviewreply.store/blog/negative-review-response-templates</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>';
-  xml += '</urlset>';
-  res.send(xml);
+  var xml = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+  SITEMAP_PATHS.forEach(function (p) { xml += '<url><loc>https://www.reviewreply.store' + p + '</loc><lastmod>2026-09-24</lastmod></url>'; });
+  res.send(xml + '</urlset>');
 });
 
 app.get('/googlefcff82c355800720.html', (req, res) => { res.send('google-site-verification: googlefcff82c355800720.html'); });
@@ -84,7 +112,7 @@ app.post('/generate', async (req, res) => {
 
   var systemPrompt = 'You are a professional business owner replying to a customer Google review. ' +
     (toneMap[tone] || toneMap.friendly) +
-    ' Naturally include 1-2 relevant local SEO keywords. Keep reply under 100 words. Output ONLY the reply text, nothing else.';
+    ' Reply in the same language as the review. Naturally mention the type of business once where it fits. Keep reply under 100 words. Output ONLY the reply text, nothing else.';
 
   try {
     const response = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
@@ -129,7 +157,7 @@ app.post('/generate-ext', async (req, res) => {
     const response = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
       model: 'llama-3.3-70b-versatile',
       messages: [
-        { role: 'system', content: 'You are a professional business owner replying to a Google review. ' + (toneMap[tone] || toneMap.friendly) + ' Include 1-2 local SEO keywords. Under 100 words. Output ONLY the reply.' },
+        { role: 'system', content: 'You are a professional business owner replying to a Google review. ' + (toneMap[tone] || toneMap.friendly) + ' Reply in the same language as the review. Naturally mention the type of business once where it fits. Under 100 words. Output ONLY the reply.' },
         { role: 'user', content: review }
       ],
       temperature: 0.75,
@@ -163,54 +191,20 @@ app.get('/pro', (req, res) => {
   res.redirect('/');
 });
 
+const BLOG = {
+  '/blog': 'blog-index',
+  '/blog/how-to-reply-to-negative-google-reviews': 'blog-negative-reviews',
+  '/blog/google-review-response-examples': 'blog-review-examples',
+  '/blog/does-responding-to-reviews-help-seo': 'blog-reviews-seo',
+  '/blog/how-to-respond-to-google-reviews': 'blog-respond-reviews',
+  '/blog/google-review-reply-examples-restaurants': 'blog-restaurant-examples',
+  '/blog/negative-review-response-templates': 'blog-negative-templates'
+};
+Object.keys(BLOG).forEach(function (route) {
+  app.get(route, (req, res) => res.render(BLOG[route], {}));
+});
+
+app.use((req, res) => res.status(404).send('<!doctype html><meta name="viewport" content="width=device-width"><title>Not found | ReviewReply</title><link rel="stylesheet" href="/rr.css"><div class="container"><h1>Page not found</h1><p><a href="/">Go to the review reply generator</a></p></div>'));
+
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, '0.0.0.0', () => console.log('ReviewReply running on ' + PORT));
-
-
-
-app.get('/blog', (req, res) => {
-  res.render('blog-index', {});
-});
-
-app.get('/blog/how-to-reply-to-negative-google-reviews', (req, res) => {
-  res.render('blog-negative-reviews', {});
-});
-
-app.get('/blog/google-review-response-examples', (req, res) => {
-  res.render('blog-review-examples', {});
-});
-
-app.get('/blog/does-responding-to-reviews-help-seo', (req, res) => {
-  res.render('blog-reviews-seo', {});
-});
-
-app.get('/blog', (req, res) => {
-  res.render('blog-index', {});
-});
-
-app.get('/blog/how-to-reply-to-negative-google-reviews', (req, res) => {
-  res.render('blog-negative-reviews', {});
-});
-
-app.get('/blog/google-review-response-examples', (req, res) => {
-  res.render('blog-review-examples', {});
-});
-
-app.get('/blog/does-responding-to-reviews-help-seo', (req, res) => {
-  res.render('blog-reviews-seo', {});
-});
-
-
-app.get('/blog/how-to-respond-to-google-reviews', (req, res) => {
-  res.render('blog-respond-reviews', {});
-});
-
-app.get('/blog/google-review-reply-examples-restaurants', (req, res) => {
-  res.render('blog-restaurant-examples', {});
-});
-
-app.get('/blog/negative-review-response-templates', (req, res) => {
-  res.render('blog-negative-templates', {});
-});
-
-
