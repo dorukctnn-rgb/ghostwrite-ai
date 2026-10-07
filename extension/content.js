@@ -2,8 +2,8 @@
 
 function getSettings() {
   return new Promise(resolve => {
-    chrome.storage.local.get(['email', 'tone'], data => {
-      resolve({ email: data.email || '', tone: data.tone || 'friendly' });
+    chrome.storage.local.get(['license', 'tone'], data => {
+      resolve({ license: data.license || '', tone: data.tone || 'friendly' });
     });
   });
 }
@@ -22,12 +22,12 @@ function injectButton(reviewEl) {
     btn.disabled = true;
 
     try {
-      const { email, tone } = await getSettings();
+      const { license, tone } = await getSettings();
 
       const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ review: reviewText, email, tone })
+        body: JSON.stringify({ review: reviewText, license_key: license, tone })
       });
 
       const data = await res.json();
@@ -49,20 +49,20 @@ function injectButton(reviewEl) {
           }
           out.innerText = data.reply;
         }
-        btn.innerHTML = '<span class="rr-dot rr-green"></span> Done — copy and paste reply above';
+        btn.innerHTML = '<span class="rr-dot rr-green"></span> Done. Copy and paste the reply above';
         btn.disabled = false;
 
       } else if (data.upgrade) {
-        btn.innerHTML = '<span class="rr-dot rr-yellow"></span> Free limit — upgrade to PRO';
+        btn.innerHTML = '<span class="rr-dot rr-yellow"></span> Over the free limit. See paid plans';
         btn.disabled = false;
         btn.onclick = () => window.open('https://www.reviewreply.store/#pricing', '_blank');
       } else {
-        btn.innerHTML = 'Error — try again';
+        btn.innerHTML = 'Something went wrong. Try again';
         btn.disabled = false;
       }
 
     } catch (e) {
-      btn.innerHTML = 'Connection error — try again';
+      btn.innerHTML = 'Connection error. Try again';
       btn.disabled = false;
     }
   });
