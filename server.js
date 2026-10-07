@@ -8,6 +8,7 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use('/fonts', express.static(path.join(__dirname, 'public', 'fonts'), { maxAge: '365d', immutable: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -65,7 +66,7 @@ async function isPaid(req) {
 
 const SEO_PAGES = {
   'restaurant': {
-    slug: 'restaurant', title: 'Google Review Replies for Restaurants', keyword: 'restaurant',
+    slug: 'restaurant', title: 'Google review replies for restaurants', keyword: 'restaurant',
     desc: 'Reply to diners\' Google reviews in seconds: thank regulars, answer complaints about waits or orders, and show future guests you listen.',
     tipsTitle: 'What a good restaurant reply does',
     tips: [
@@ -76,7 +77,7 @@ const SEO_PAGES = {
     ]
   },
   'dentist': {
-    slug: 'dentist', title: 'Google Review Replies for Dentists', keyword: 'dental clinic',
+    slug: 'dentist', title: 'Google review replies for dentists', keyword: 'dental clinic',
     desc: 'Reply to patient reviews professionally and without revealing anything about their care. Friendly for praise, careful for complaints.',
     tipsTitle: 'Replying to patient reviews safely',
     tips: [
@@ -87,7 +88,7 @@ const SEO_PAGES = {
     ]
   },
   'hotel': {
-    slug: 'hotel', title: 'Google Review Replies for Hotels', keyword: 'hotel',
+    slug: 'hotel', title: 'Google review replies for hotels', keyword: 'hotel',
     desc: 'Reply to guest reviews in their own language, thank them for specifics, and handle complaints about rooms, noise or check-in calmly.',
     tipsTitle: 'What a good hotel reply does',
     tips: [
@@ -98,7 +99,7 @@ const SEO_PAGES = {
     ]
   },
   'negative': {
-    slug: 'negative', title: 'How to Reply to Negative Google Reviews', keyword: 'unhappy customer',
+    slug: 'negative', title: 'How to reply to negative Google reviews', keyword: 'unhappy customer',
     desc: 'Write calm, specific replies to negative Google reviews. Apologise once, explain what changed, and take the conversation offline.',
     tipsTitle: 'The four parts of a good reply to a bad review',
     tips: [

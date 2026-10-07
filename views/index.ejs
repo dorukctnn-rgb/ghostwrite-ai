@@ -8,7 +8,7 @@
   <title><%= page.title %> | ReviewReply</title>
   <meta name="description" content="<%= page.desc %>">
 <% } else { %>
-  <title>Google Review Reply Generator: Free AI Replies in Seconds | ReviewReply</title>
+  <title>Google Review Reply Generator: Free AI Replies | ReviewReply</title>
   <meta name="description" content="Paste a Google review, pick a tone, get a polite, specific reply in seconds. Free for reviews up to 300 characters. Works for positive and negative reviews.">
 <% } %>
   <link rel="canonical" href="<%= canonical %>">
@@ -31,7 +31,7 @@
   <style>
     .hero{max-width:1080px;margin:0 auto;padding:56px 20px 24px;display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
     .hero .kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--green);background:var(--green-soft);padding:5px 12px;border-radius:99px}
-    .hero h1{font-size:clamp(38px,5.4vw,60px);line-height:1.02;font-weight:700;margin:18px 0 16px}
+    .hero h1{font-size:clamp(40px,5.6vw,64px);line-height:1.03;font-weight:600;margin:18px 0 16px}
     .hero h1 em{font-style:normal;color:var(--green)}
     .hero p.lede{font-size:18.5px;color:var(--ink-2);max-width:520px}
     .hero .ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
@@ -48,7 +48,7 @@
     .ex{position:absolute;top:-12px;right:14px;font-size:11px;font-weight:600;background:var(--ink);color:#fff;padding:3px 9px;border-radius:99px}
     #tool{scroll-margin-top:80px;max-width:820px;margin:28px auto 0;padding:0 20px}
     .tool{background:var(--card);border:1px solid var(--ink);border-radius:18px;padding:22px;box-shadow:8px 8px 0 var(--green)}
-    .tool h2{font-size:22px;margin-bottom:14px}
+    .tool h2{font-size:27px;margin-bottom:14px}
     .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
     .flabel{font-size:13px;font-weight:600;margin-bottom:6px;color:var(--ink-2)}
     .tool input,.tool select,.tool textarea{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
@@ -62,11 +62,11 @@
     .result .copy{margin-top:12px;height:40px;font-size:14px}
     .limit{margin-top:18px;border:1px solid #efd9a8;background:#fdf6e6;border-radius:14px;padding:16px 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
     section.band{max-width:1080px;margin:0 auto;padding:72px 20px 0}
-    section.band>h2{font-size:clamp(28px,3.4vw,38px);line-height:1.1;font-weight:700;max-width:640px}
+    section.band>h2{font-size:clamp(30px,3.6vw,42px);line-height:1.1;font-weight:600;max-width:640px}
     section.band>p.sub{color:var(--ink-2);margin-top:10px;max-width:640px}
     .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
     .steps3 div{border-top:3px solid var(--green);padding-top:14px}
-    .steps3 b{font-family:var(--head);font-size:19px;display:block;margin:6px 0}
+    .steps3 b{font-family:var(--head);font-size:23px;font-weight:600;display:block;margin:6px 0}
     .steps3 span{color:var(--muted);font-size:13px;font-weight:600}
     .steps3 p{color:var(--ink-2);font-size:15.5px}
     .industry{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-top:22px}
@@ -75,16 +75,16 @@
     .plan{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;display:flex;flex-direction:column}
     .plan.pop{border:2px solid var(--green)}
     .plan .nm{font-weight:600;color:var(--muted)}
-    .plan .pr{font-family:var(--head);font-size:42px;font-weight:700;margin:4px 0 0}
-    .plan .pr small{font-family:'Inter';font-size:15px;font-weight:500;color:var(--muted)}
+    .plan .pr{font-family:var(--head);font-size:46px;font-weight:600;margin:4px 0 0}
+    .plan .pr small{font-family:var(--body);font-size:15px;font-weight:500;color:var(--muted)}
     .plan ul{list-style:none;margin:16px 0 20px;display:grid;gap:8px;font-size:15px;color:var(--ink-2)}
-    .plan li::before{content:"✓";color:var(--green);font-weight:700;margin-right:8px}
+    .plan li::before{content:"";display:inline-block;width:7px;height:7px;background:var(--green);margin-right:10px;vertical-align:middle}
     .plan .btn{margin-top:auto;width:100%}
     .faqs{max-width:760px}
     .faqs details{border-bottom:1px solid var(--line);padding:16px 0}
     .faqs summary{cursor:pointer;font-weight:600;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:12px}
     .faqs summary::after{content:"+";color:var(--muted)}
-    .faqs details[open] summary::after{content:"–"}
+    .faqs details[open] summary::after{content:"\2212"}
     .faqs p{margin-top:8px;color:var(--ink-2)}
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
     .chips a{background:var(--card);border:1px solid var(--line);padding:8px 14px;border-radius:99px;text-decoration:none;font-size:14px}
@@ -98,7 +98,7 @@
 
 <header class="hero">
   <div>
-    <span class="kicker">★ Google review reply generator</span>
+    <span class="kicker">Google review reply generator</span>
     <% if (page) { %>
       <h1><%= page.title %></h1>
       <p class="lede"><%= page.desc %></p>
@@ -133,7 +133,7 @@
             <option value="empathetic">Empathetic (for complaints)</option>
             <option value="witty">Witty</option>
           </select></label>
-        <label><div class="flabel">Plan</div><input type="text" value="<%= isPro ? 'Paid · any length' : 'Free · up to 300 characters' %>" readonly></label>
+        <label><div class="flabel">Plan</div><input type="text" value="<%= isPro ? 'Paid: any length' : 'Free: up to 300 characters' %>" readonly></label>
       </div>
       <label><div class="flabel">Customer review</div><textarea name="review" placeholder="Paste the Google review here…" required><%= review %></textarea></label>
       <button type="submit" class="btn gen">Write my reply</button>
@@ -173,7 +173,7 @@
 
 <section class="band" id="pricing">
   <h2>Simple pricing</h2>
-  <p class="sub">Start free. Pay only if you need to reply to longer reviews or want the Chrome extension.</p>
+  <p class="sub">Start free. Pay once if you need to reply to longer reviews or want the Chrome extension. Both paid plans are a single payment, not a subscription.</p>
   <div class="plans">
     <div class="plan">
       <div class="nm">Free</div>
@@ -183,24 +183,25 @@
     </div>
     <div class="plan pop">
       <div class="nm">Starter</div>
-      <div class="pr">$9 <small>/ month</small></div>
+      <div class="pr">$9 <small>one-time</small></div>
       <ul><li>Reviews of any length</li><li>All four tones</li><li>Email support from the maker</li></ul>
-      <a href="https://dorukctn.gumroad.com/l/qkcxwv" target="_blank" rel="noopener" class="btn">Get Starter · $9/month</a>
+      <a href="https://dorukctn.gumroad.com/l/qkcxwv" target="_blank" rel="noopener" class="btn">Get Starter for $9</a>
     </div>
     <div class="plan">
       <div class="nm">Pro</div>
-      <div class="pr">$19 <small>/ month</small></div>
+      <div class="pr">$19 <small>one-time</small></div>
       <ul><li>Everything in Starter</li><li>Chrome extension for replying where you read reviews</li><li>Priority email support</li></ul>
-      <a href="https://dorukctn.gumroad.com/l/wyaezo" target="_blank" rel="noopener" class="btn">Get Pro · $19/month</a>
+      <a href="https://dorukctn.gumroad.com/l/wyaezo" target="_blank" rel="noopener" class="btn">Get Pro for $19</a>
     </div>
   </div>
-  <p class="sub" style="font-size:14px;margin-top:14px">Paid through Gumroad. After checkout, <a href="/pro">activate your plan</a> with the license key from your Gumroad receipt.</p>
+  <p class="sub" style="font-size:14px;margin-top:14px">Paid through Gumroad as a one-time payment. After checkout, <a href="/pro">activate your plan</a> with the license key from your Gumroad receipt.</p>
 </section>
 
 <section class="band faqs">
   <h2>Questions</h2>
   <details><summary>Does replying to Google reviews help SEO?</summary><p>Google lists responding to reviews among its tips for improving local ranking, because it shows you value customers. It does not say replies are a direct ranking factor. The clearest benefit is with the people reading your profile. <a href="/blog/does-responding-to-reviews-help-seo">Read more</a>.</p></details>
   <details><summary>Is ReviewReply free?</summary><p>Yes, for reviews up to 300 characters, with all four tones. Paid plans remove the length limit.</p></details>
+  <details><summary>Are the paid plans subscriptions?</summary><p>No. Starter ($9) and Pro ($19) are each a single payment through Gumroad. There is no monthly charge.</p></details>
   <details><summary>Does it work for negative reviews?</summary><p>Yes. Choose the Empathetic tone for an apologetic, solution-focused reply. Always add the specific fix or contact details before posting. <a href="/blog/negative-review-response-templates">See templates</a>.</p></details>
   <details><summary>What languages does it reply in?</summary><p>It replies in the language of the review. Quality is best in widely used languages such as English, Spanish, German, French, Italian and Portuguese; check replies in other languages before posting.</p></details>
   <details><summary>Should I post the reply exactly as written?</summary><p>Read it first. Add names, the specific fix and contact details, and remove anything that isn&#39;t true for your business.</p></details>

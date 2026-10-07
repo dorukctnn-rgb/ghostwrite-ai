@@ -26,7 +26,7 @@
 <%- include("partials/nav") %>
 <main class="act">
   <h1>Activate your plan</h1>
-  <p>Paste the license key from your Gumroad receipt email. It unlocks replies to reviews of any length in this browser.</p>
+  <p>Paste the license key from your Gumroad receipt email. It lifts the 300-character limit on reviews in this browser.</p>
   <% if (active) { %><div class="ok">A paid plan is already active in this browser. <a href="/#tool">Write a reply</a></div><% } %>
   <% if (error) { %><div class="err" role="alert"><%= error %></div><% } %>
   <form method="POST" action="/pro">

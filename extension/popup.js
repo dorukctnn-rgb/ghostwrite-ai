@@ -3,6 +3,8 @@
   if (data.tone)  document.getElementById('tone').value  = data.tone;
 });
 
+document.getElementById('saveBtn').addEventListener('click', save);
+
 function save() {
   const license = document.getElementById('license').value.trim();
   const tone  = document.getElementById('tone').value;

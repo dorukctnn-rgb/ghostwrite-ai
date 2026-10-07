@@ -2,39 +2,40 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  background: #e8f0fe;
-  color: #1a73e8;
-  border: 1px solid #c5d8fd;
-  border-radius: 4px;
+  background: #e7f0ea;
+  color: #1f5c45;
+  border: 1px solid #b9d3c3;
+  border-radius: 6px;
   padding: 7px 14px;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   margin-top: 8px;
-  font-family: 'Google Sans', sans-serif;
+  font-family: inherit;
   transition: background 0.15s;
 }
-.rr-btn:hover { background: #d2e3fc; }
+.rr-btn:hover { background: #d6e7dc; }
 .rr-btn:disabled { opacity: 0.7; cursor: default; }
 
 .rr-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #1a73e8;
+  background: #1f5c45;
   flex-shrink: 0;
 }
-.rr-green { background: #34A853; }
-.rr-yellow { background: #FBBC05; }
+.rr-green { background: #2f8f5b; }
+.rr-yellow { background: #d99a1e; }
 
 .rr-output {
   margin-top: 10px;
   padding: 12px 14px;
-  background: #f0faf4;
-  border: 1px solid #a8d5b5;
-  border-radius: 6px;
+  background: #f6faf7;
+  border: 1px solid #cfe0d5;
+  border-radius: 8px;
+  font-family: inherit;
   font-size: 13px;
   line-height: 1.6;
-  color: #202124;
+  color: #13261f;
   white-space: pre-wrap;
 }
