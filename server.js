@@ -12,8 +12,56 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.set('trust proxy', 1); // Render + Cloudflare terminate TLS
 
-const users = {};
+// === Paid plans: Gumroad license keys ===
+// A paid plan is a Gumroad license key, checked with POST /v2/licenses/verify (no secret
+// needed) and kept in an httpOnly cookie. Both products need "Generate a unique license
+// key per sale" switched on in Gumroad, otherwise no purchase can be verified.
+const STARTER_PRODUCT_ID = 'Rv2ra2BwPeukaj2zt5cdPA=='; // dorukctn.gumroad.com/l/qkcxwv
+const PRO_PRODUCT_ID = '2yRWEPchuLyJD9K6idd_Tw==';     // dorukctn.gumroad.com/l/wyaezo
+const LICENSE_COOKIE = 'rr_license';
+const licenseCache = new Map();
+
+async function verifyLicense(rawKey) {
+  const key = String(rawKey || '').trim();
+  if (!key || key.length > 100) return { ok: false, reason: 'Enter the license key from your Gumroad receipt.' };
+  const hit = licenseCache.get(key);
+  if (hit && hit.until > Date.now()) return hit.result;
+
+  let result = { ok: false, reason: 'That license key was not found. Copy it again from your Gumroad receipt.' };
+  let reached = false;
+  for (const productId of [STARTER_PRODUCT_ID, PRO_PRODUCT_ID]) {
+    try {
+      const r = await axios.post('https://api.gumroad.com/v2/licenses/verify',
+        new URLSearchParams({ product_id: productId, license_key: key, increment_uses_count: 'false' }).toString(),
+        { headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, timeout: 8000, validateStatus: () => true });
+      reached = true;
+      const d = r.data || {};
+      if (!d.success || !d.purchase) continue;
+      const p = d.purchase;
+      if (p.refunded || p.chargebacked || (p.disputed && !p.dispute_won)) {
+        result = { ok: false, reason: 'This purchase was refunded or disputed.' };
+      } else if (p.subscription_ended_at || p.subscription_failed_at) {
+        result = { ok: false, reason: 'This subscription has ended. Renew it on Gumroad to keep the paid plan.' };
+      } else {
+        result = { ok: true, plan: productId === PRO_PRODUCT_ID ? 'pro' : 'starter' };
+      }
+      break;
+    } catch (e) {
+      console.error('Gumroad verify error:', e.message);
+    }
+  }
+  if (!reached) return { ok: false, reason: 'Could not reach Gumroad. Please try again in a minute.' };
+  licenseCache.set(key, { result, until: Date.now() + (result.ok ? 6 * 3600e3 : 10 * 60e3) });
+  return result;
+}
+
+async function isPaid(req) {
+  const key = req.cookies && req.cookies[LICENSE_COOKIE];
+  if (!key) return false;
+  return (await verifyLicense(key)).ok;
+}
 
 const SEO_PAGES = {
   'restaurant': {
@@ -69,7 +117,7 @@ const SITEMAP_PATHS = ['/', '/restaurant-reviews', '/dentist-reviews', '/hotel-r
 app.get('/sitemap.xml', (req, res) => {
   res.header('Content-Type', 'application/xml');
   var xml = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-  SITEMAP_PATHS.forEach(function (p) { xml += '<url><loc>https://www.reviewreply.store' + p + '</loc><lastmod>2026-09-24</lastmod></url>'; });
+  SITEMAP_PATHS.forEach(function (p) { xml += '<url><loc>https://www.reviewreply.store' + p + '</loc><lastmod>' + (p.indexOf('/blog') === 0 ? '2026-09-24' : '2026-10-07') + '</lastmod></url>'; });
   res.send(xml + '</urlset>');
 });
 
@@ -79,21 +127,22 @@ app.get('/robots.txt', (req, res) => {
   res.send('User-agent: *\nAllow: /\nSitemap: https://www.reviewreply.store/sitemap.xml');
 });
 
-app.get('/', (req, res) => {
-  const isPro = req.cookies.pro === 'true';
+app.get('/', async (req, res) => {
+  const isPro = await isPaid(req);
   res.render('index', { result: '', review: '', email: '', isPro, page: null });
 });
 
 Object.keys(SEO_PAGES).forEach(slug => {
-  app.get('/' + slug + '-reviews', (req, res) => {
-    const isPro = req.cookies.pro === 'true';
+  app.get('/' + slug + '-reviews', async (req, res) => {
+    const isPro = await isPaid(req);
     res.render('index', { result: '', review: '', email: '', isPro, page: SEO_PAGES[slug] });
   });
 });
 
 app.post('/generate', async (req, res) => {
-  const { review, email, tone } = req.body;
-  const isPro = users[email] && users[email].pro === true ? true : req.cookies.pro === 'true';
+  const { review, tone } = req.body;
+  const email = '';
+  const isPro = await isPaid(req);
 
   if (!review || review.trim().length < 5) {
     return res.render('index', { result: 'Please paste a customer review first.', review: '', email: email || '', isPro, page: null });
@@ -140,11 +189,10 @@ app.post('/generate', async (req, res) => {
 });
 
 app.post('/generate-ext', async (req, res) => {
-  const { review, email, tone } = req.body;
-  const isPro = users[email] && users[email].pro === true;
+  const { review, tone } = req.body;
 
   if (!review || review.trim().length < 5) return res.json({ error: 'No review text.' });
-  if (!isPro && review.length > 300) return res.json({ upgrade: true });
+  if (review.length > 300 && !(await verifyLicense(req.body.license_key || req.body.license)).ok) return res.json({ upgrade: true });
 
   var toneMap = {
     friendly: 'Be warm, friendly and personal.',
@@ -171,24 +219,26 @@ app.post('/generate-ext', async (req, res) => {
   }
 });
 
+// Sale pings are acknowledged but grant nothing: anyone can POST here, so access
+// comes only from a license key that Gumroad verifies (see /pro).
 app.post('/webhook', (req, res) => {
-  try {
-    const event = req.body;
-    console.log('WEBHOOK RECEIVED:', JSON.stringify(event));
-    const email = event.email || (event.data && event.data.attributes && event.data.attributes.user_email);
-    if (email) {
-      users[email] = { pro: true };
-      console.log('NEW PRO USER:', email);
-    }
-  } catch (e) {
-    console.error('Webhook error:', e.message);
-  }
+  const b = req.body || {};
+  console.log('Sale ping:', { sale_id: b.sale_id, product_id: b.product_id, has_license: Boolean(b.license_key) });
   res.sendStatus(200);
 });
 
-app.get('/pro', (req, res) => {
-  res.cookie('pro', 'true', { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
-  res.redirect('/');
+// Activate a paid plan with the license key from the Gumroad receipt.
+app.get('/pro', async (req, res) => {
+  res.render('activate', { error: '', active: await isPaid(req) });
+});
+
+app.post('/pro', async (req, res) => {
+  const key = String(req.body.license_key || '').trim();
+  const check = await verifyLicense(key);
+  if (!check.ok) return res.status(400).render('activate', { error: check.reason, active: false });
+  res.clearCookie('pro');
+  res.cookie(LICENSE_COOKIE, key, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'lax', secure: req.secure });
+  res.redirect(303, '/?activated=1#tool');
 });
 
 const BLOG = {

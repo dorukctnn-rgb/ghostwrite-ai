@@ -1,12 +1,12 @@
-﻿chrome.storage.local.get(['email', 'tone'], data => {
-  if (data.email) document.getElementById('email').value = data.email;
+﻿chrome.storage.local.get(['license', 'tone'], data => {
+  if (data.license) document.getElementById('license').value = data.license;
   if (data.tone)  document.getElementById('tone').value  = data.tone;
 });
 
 function save() {
-  const email = document.getElementById('email').value;
+  const license = document.getElementById('license').value.trim();
   const tone  = document.getElementById('tone').value;
-  chrome.storage.local.set({ email, tone }, () => {
+  chrome.storage.local.set({ license, tone }, () => {
     const s = document.getElementById('saved');
     s.style.display = 'block';
     setTimeout(() => s.style.display = 'none', 2000);

@@ -2,8 +2,8 @@
 
 function getSettings() {
   return new Promise(resolve => {
-    chrome.storage.local.get(['email', 'tone'], data => {
-      resolve({ email: data.email || '', tone: data.tone || 'friendly' });
+    chrome.storage.local.get(['license', 'tone'], data => {
+      resolve({ license: data.license || '', tone: data.tone || 'friendly' });
     });
   });
 }
@@ -22,12 +22,12 @@ function injectButton(reviewEl) {
     btn.disabled = true;
 
     try {
-      const { email, tone } = await getSettings();
+      const { license, tone } = await getSettings();
 
       const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ review: reviewText, email, tone })
+        body: JSON.stringify({ review: reviewText, license_key: license, tone })
       });
 
       const data = await res.json();
