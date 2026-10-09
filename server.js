@@ -99,8 +99,9 @@ const SEO_PAGES = {
     ]
   },
   'negative': {
-    slug: 'negative', title: 'How to reply to negative Google reviews', keyword: 'unhappy customer',
-    desc: 'Write calm, specific replies to negative Google reviews. Apologise once, explain what changed, and take the conversation offline.',
+    slug: 'negative', title: 'Reply to a negative Google review', metaTitle: 'Negative Review Response Generator, Free', keyword: 'unhappy customer',
+    desc: 'Paste a negative Google review and get a calm, specific reply to edit: one apology, what changed and a direct contact. Free for reviews up to 300 characters.',
+    guide: { href: '/blog/negative-review-response-templates', text: 'Templates for 12 situations, and what never to write in a reply' },
     tipsTitle: 'The four parts of a good reply to a bad review',
     tips: [
       'Thank them for the feedback, even when it stings.',
@@ -111,14 +112,25 @@ const SEO_PAGES = {
   }
 };
 
-const SITEMAP_PATHS = ['/', '/restaurant-reviews', '/dentist-reviews', '/hotel-reviews', '/negative-reviews', '/blog',
-  '/blog/how-to-respond-to-google-reviews', '/blog/how-to-reply-to-negative-google-reviews', '/blog/negative-review-response-templates',
-  '/blog/google-review-response-examples', '/blog/google-review-reply-examples-restaurants', '/blog/does-responding-to-reviews-help-seo'];
+// Path and last substantive change. Update the date whenever a page's content changes.
+const SITEMAP = {
+  '/': '2026-10-07',
+  '/restaurant-reviews': '2026-10-07',
+  '/dentist-reviews': '2026-10-07',
+  '/hotel-reviews': '2026-10-07',
+  '/negative-reviews': '2026-10-09',
+  '/blog': '2026-10-09',
+  '/blog/how-to-respond-to-google-reviews': '2026-10-09',
+  '/blog/negative-review-response-templates': '2026-10-09',
+  '/blog/does-responding-to-reviews-help-seo': '2026-10-09',
+  '/blog/google-review-response-examples': '2026-10-09',
+  '/blog/google-review-reply-examples-restaurants': '2026-10-09'
+};
 
 app.get('/sitemap.xml', (req, res) => {
   res.header('Content-Type', 'application/xml');
   var xml = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-  SITEMAP_PATHS.forEach(function (p) { xml += '<url><loc>https://www.reviewreply.store' + p + '</loc><lastmod>' + (p.indexOf('/blog') === 0 ? '2026-09-24' : '2026-10-07') + '</lastmod></url>'; });
+  Object.keys(SITEMAP).forEach(function (p) { xml += '<url><loc>https://www.reviewreply.store' + p + '</loc><lastmod>' + SITEMAP[p] + '</lastmod></url>'; });
   res.send(xml + '</urlset>');
 });
 
@@ -242,9 +254,17 @@ app.post('/pro', async (req, res) => {
   res.redirect(303, '/?activated=1#tool');
 });
 
+// Retired in October 2026: the negative-review guide overlapped the templates page, so its
+// framework and examples now live there and the old URL 301s to it.
+const REDIRECTS = {
+  '/blog/how-to-reply-to-negative-google-reviews': '/blog/negative-review-response-templates'
+};
+Object.keys(REDIRECTS).forEach(function (from) {
+  app.get(from, (req, res) => res.redirect(301, REDIRECTS[from]));
+});
+
 const BLOG = {
   '/blog': 'blog-index',
-  '/blog/how-to-reply-to-negative-google-reviews': 'blog-negative-reviews',
   '/blog/google-review-response-examples': 'blog-review-examples',
   '/blog/does-responding-to-reviews-help-seo': 'blog-reviews-seo',
   '/blog/how-to-respond-to-google-reviews': 'blog-respond-reviews',
