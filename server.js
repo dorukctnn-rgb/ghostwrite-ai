@@ -124,7 +124,9 @@ const SITEMAP = {
   '/blog/negative-review-response-templates': '2026-10-09',
   '/blog/does-responding-to-reviews-help-seo': '2026-10-09',
   '/blog/google-review-response-examples': '2026-10-09',
-  '/blog/google-review-reply-examples-restaurants': '2026-10-09'
+  '/blog/google-review-reply-examples-restaurants': '2026-10-09',
+  '/privacy': '2026-10-11',
+  '/terms': '2026-10-11'
 };
 
 app.get('/sitemap.xml', (req, res) => {
@@ -274,6 +276,9 @@ const BLOG = {
 Object.keys(BLOG).forEach(function (route) {
   app.get(route, (req, res) => res.render(BLOG[route], {}));
 });
+
+app.get('/privacy', (req, res) => res.render('privacy'));
+app.get('/terms', (req, res) => res.render('terms'));
 
 app.use((req, res) => res.status(404).send('<!doctype html><meta name="viewport" content="width=device-width"><title>Not found | ReviewReply</title><link rel="stylesheet" href="/rr.css"><div class="container"><h1>Page not found</h1><p><a href="/">Go to the review reply generator</a></p></div>'));
 
