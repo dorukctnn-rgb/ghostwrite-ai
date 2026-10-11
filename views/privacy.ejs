@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | ReviewReply</title>
+  <meta name="description" content="What ReviewReply does with your data: review text sent to Groq to write the reply and not kept, the license cookie, Gumroad checks, and who else receives data.">
+  <link rel="canonical" href="https://www.reviewreply.store/privacy">
+  <meta property="og:url" content="https://www.reviewreply.store/privacy">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ReviewReply privacy policy">
+  <meta property="og:description" content="What ReviewReply does with the reviews you paste, the license cookie and the companies that receive data.">
+<%- include("partials/assets") %>
+</head>
+<body>
+<%- include("partials/nav") %>
+
+<article class="article">
+  <h1>Privacy policy</h1>
+  <div class="meta">Last updated: 11 October 2026</div>
+
+  <p>ReviewReply has no accounts, no analytics and no advertising. This page lists the data the site and its browser extension handle, where it goes and why.</p>
+
+  <h2>Who runs this site</h2>
+  <p>ReviewReply (www.reviewreply.store) is run by Peak Apps Studio. For any question about your data, email <a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a>.</p>
+
+  <h2>When you write a reply</h2>
+  <p>When you press the button to write a reply, the review you pasted and the tone you chose are sent to our server. The server passes the review to Groq, which runs the Llama 3.3 70B model, and shows you the reply Groq returns. We do not save the reviews you paste or the replies. If a request fails, the server writes a short error message to our hosting logs.</p>
+  <p>Reviews often contain a customer's name and details of their visit. Paste only the review text you need a reply for.</p>
+
+  <h2>The browser extension</h2>
+  <p>The ReviewReply extension for Chrome, part of the Pro plan, works on business.google.com. It adds a reply button to each review there. When you click the button, it sends the text of that review as it appears on the page (up to 500 characters, which can include the reviewer's name), your chosen tone and your license key to our server, which handles it in the same way as a reply written on the site. The extension saves your license key and tone in the browser's extension storage. It sends nothing until you click the button.</p>
+
+  <h2>License keys and the cookie</h2>
+  <p>When you activate a paid plan, our server sends your license key to Gumroad's license service (api.gumroad.com) to confirm that it belongs to a purchase that has not been refunded or ended. The key is then saved in a cookie called <code>rr_license</code> so the plan stays on in that browser. The cookie lasts one year and is sent only to this site. The server checks the key with Gumroad again on later visits and keeps the answer in its memory for up to six hours. The site sets no other cookies.</p>
+
+  <h2>Buying a plan</h2>
+  <p>Paid plans are sold through Gumroad. The buy buttons open Gumroad's checkout, where you give your payment details to Gumroad, not to us. When Gumroad tells our server about a sale, the server writes the sale ID and product ID to our hosting logs and stores nothing else. As the seller, we receive your email address and the details of your order from Gumroad, and we use them to provide email support, answer questions about your purchase and issue refunds.</p>
+
+  <h2>Hosting and fonts</h2>
+  <p>The site runs on Render, in the United States, and Render routes traffic through Cloudflare's network. Both process each request, including your IP address, the page you asked for and your browser type, and Render keeps our server logs for a limited time. The fonts are served from this site, so no font service sees your visit.</p>
+
+  <h2>Emails</h2>
+  <p>If you email us or reply to a Gumroad receipt, we receive your email address and your message. Mail sent to peakappsstudio.com addresses is forwarded by Forward Email to a Gmail inbox. We use your email only to reply to you.</p>
+
+  <h2>Who else receives data</h2>
+  <div class="table-wrap"><table class="data">
+    <thead><tr><th>Company</th><th>What for</th><th>Privacy policy</th></tr></thead>
+    <tbody>
+      <tr><td>Groq</td><td>Writing the reply from the review text</td><td><a href="https://groq.com/privacy-policy/" rel="noopener">groq.com</a></td></tr>
+      <tr><td>Render</td><td>Hosting the site and its server</td><td><a href="https://render.com/privacy" rel="noopener">render.com</a></td></tr>
+      <tr><td>Cloudflare</td><td>The network in front of our host</td><td><a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">cloudflare.com</a></td></tr>
+      <tr><td>Gumroad</td><td>Checkout, payments and license checks</td><td><a href="https://gumroad.com/privacy" rel="noopener">gumroad.com</a></td></tr>
+      <tr><td>Google</td><td>The Gmail inbox for our email</td><td><a href="https://policies.google.com/privacy" rel="noopener">policies.google.com</a></td></tr>
+      <tr><td>Forward Email</td><td>Forwarding mail sent to our address</td><td><a href="https://forwardemail.net/en/privacy" rel="noopener">forwardemail.net</a></td></tr>
+    </tbody>
+  </table></div>
+  <p>Groq says that by default it does not keep the data sent for a request. It may log requests for up to 30 days when it troubleshoots errors or investigates suspected abuse. Most of these companies are based in the United States, so your data may be processed there. We do not sell your data, and we do not share it with advertisers.</p>
+
+  <h2>How long data is kept</h2>
+  <ul>
+    <li>Reviews and replies: not kept by us. Groq may keep a request for up to 30 days, as described above.</li>
+    <li>The license cookie: one year, or until you clear this site's cookies. License check results: up to six hours in the server's memory.</li>
+    <li>The license key and tone in the extension: until you change them or remove the extension.</li>
+    <li>Hosting logs: kept by Render for a limited time. Purchase records: kept by Gumroad under its own policy.</li>
+    <li>Emails to us: until we delete them. Ask us and we will delete yours, unless we need it as a record of a payment or refund.</li>
+  </ul>
+
+  <h2>Your rights</h2>
+  <p>You can ask us for a copy of the personal data we hold about you, ask us to correct or delete it, or object to how we use it. Email <a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a> and we will reply within one month. If you live in the EU or the UK, you can also complain to your local data protection authority.</p>
+
+  <h2>Children</h2>
+  <p>ReviewReply is a tool for businesses and is not directed at children under 13. We do not knowingly collect personal data from children.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If the site or the extension starts handling data differently, we will update this page and the date at the top.</p>
+
+  <h2>Contact</h2>
+  <p>Peak Apps Studio, <a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a>. See also our <a href="/terms">terms of use</a>.</p>
+</article>
+
+<%- include("partials/footer") %>
+</body>
+</html>
