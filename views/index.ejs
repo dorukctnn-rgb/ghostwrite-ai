@@ -8,7 +8,7 @@
   <title><%= page.metaTitle || page.title %> | ReviewReply</title>
   <meta name="description" content="<%= page.desc %>">
 <% } else { %>
-  <title>Google Review Reply Generator: Free AI Replies | ReviewReply</title>
+  <title>Google Review Reply Generator: Free Replies | ReviewReply</title>
   <meta name="description" content="Paste a Google review, pick a tone, get a polite, specific reply in seconds. Free for reviews up to 300 characters. Works for positive and negative reviews.">
 <% } %>
   <link rel="canonical" href="<%= canonical %>">
@@ -19,7 +19,7 @@
 <%- include("partials/assets") %>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[
-    {"@type":"WebApplication","name":"ReviewReply","url":"https://www.reviewreply.store/","applicationCategory":"BusinessApplication","operatingSystem":"Any (web browser)","description":"AI reply generator for Google reviews. Paste a review, choose a tone and get a reply to post.","offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Starter","price":"9","priceCurrency":"USD"},{"@type":"Offer","name":"Pro","price":"19","priceCurrency":"USD"}]},
+    {"@type":"WebApplication","name":"ReviewReply","url":"<%= canonical %>","applicationCategory":"BusinessApplication","operatingSystem":"Any (web browser)","description":"Reply generator for Google reviews. Paste a review, choose a tone and get a reply to post.","offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Starter","price":"9","priceCurrency":"USD"},{"@type":"Offer","name":"Pro","price":"19","priceCurrency":"USD"}]},
     {"@type":"FAQPage","mainEntity":[
       {"@type":"Question","name":"Does replying to Google reviews help SEO?","acceptedAnswer":{"@type":"Answer","text":"Google lists responding to reviews among its tips for improving local ranking, because it shows you value customers. It does not say replies are a direct ranking factor. The clearest benefit is with the customers who read your profile."}},
       {"@type":"Question","name":"Is ReviewReply free?","acceptedAnswer":{"@type":"Answer","text":"Yes, for reviews up to 300 characters, with all four tones. Paid plans remove the length limit."}},
@@ -96,6 +96,7 @@
 <body>
 <%- include("partials/nav") %>
 
+<main>
 <header class="hero">
   <div>
     <span class="kicker">Google review reply generator</span>
@@ -215,6 +216,8 @@
     <a href="/blog/google-review-reply-examples-restaurants">Restaurant examples</a><a href="/blog/how-to-respond-to-google-reviews">How to respond</a>
   </div>
 </section>
+
+</main>
 
 <%- include("partials/footer") %>
 

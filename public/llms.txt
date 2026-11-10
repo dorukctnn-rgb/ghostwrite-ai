@@ -1,0 +1,21 @@
+# ReviewReply
+
+> ReviewReply writes a first draft of a reply to a Google review. You paste the review, pick a tone (friendly, professional, empathetic or witty) and edit the draft before you post it. Replies are written in the language of the review. It is free for reviews up to 300 characters; Starter ($9) and Pro ($19) are one-time payments through Gumroad that remove the length limit. Independent tool, not affiliated with Google.
+
+## Key pages
+- [Reply generator](https://www.reviewreply.store/): Paste a review, get a draft reply
+- [Replies for restaurants](https://www.reviewreply.store/restaurant-reviews): Tips and the generator for diners' reviews
+- [Replies for dentists](https://www.reviewreply.store/dentist-reviews): Replying to patient reviews without revealing anything about their care
+- [Replies for hotels](https://www.reviewreply.store/hotel-reviews): Guest reviews, in the guest's language
+- [Replying to a negative review](https://www.reviewreply.store/negative-reviews): The four parts of a good reply to a bad review
+
+## Guides
+- [How to respond to Google reviews](https://www.reviewreply.store/blog/how-to-respond-to-google-reviews): Who can reply, the five steps, what happens after you press Reply, Google's reply guidelines quoted
+- [Negative review response templates](https://www.reviewreply.store/blog/negative-review-response-templates): 12 templates by situation, with what never to write
+- [Does responding to reviews help SEO?](https://www.reviewreply.store/blog/does-responding-to-reviews-help-seo): Google's own words on reviews and local ranking, and which claims are unconfirmed
+- [Google review response examples](https://www.reviewreply.store/blog/google-review-response-examples): Replies for restaurants, hotels, dentists and salons
+- [Google review reply examples for restaurants](https://www.reviewreply.store/blog/google-review-reply-examples-restaurants): Praise, waits, delivery orders, allergies and bookings
+
+## Legal
+- [Privacy policy](https://www.reviewreply.store/privacy)
+- [Terms of use](https://www.reviewreply.store/terms)

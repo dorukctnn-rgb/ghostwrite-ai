@@ -68,6 +68,7 @@ const SEO_PAGES = {
   'restaurant': {
     slug: 'restaurant', title: 'Google review replies for restaurants', keyword: 'restaurant',
     desc: 'Reply to diners\' Google reviews in seconds: thank regulars, answer complaints about waits or orders, and show future guests you listen.',
+    guide: { href: '/blog/google-review-reply-examples-restaurants', text: 'Restaurant reply examples, including delivery orders, allergies and bookings' },
     tipsTitle: 'What a good restaurant reply does',
     tips: [
       'Mention the dish, the occasion or the staff member the guest named, so the reply is clearly not a template.',
@@ -79,6 +80,7 @@ const SEO_PAGES = {
   'dentist': {
     slug: 'dentist', title: 'Google review replies for dentists', keyword: 'dental clinic',
     desc: 'Reply to patient reviews professionally and without revealing anything about their care. Friendly for praise, careful for complaints.',
+    guide: { href: '/blog/google-review-response-examples', text: 'Reply examples for dentists, restaurants, hotels and salons' },
     tipsTitle: 'Replying to patient reviews safely',
     tips: [
       'Do not confirm that the reviewer is a patient or mention any treatment. Health privacy rules (such as HIPAA in the US or GDPR in the UK and EU) still apply in public replies.',
@@ -90,6 +92,7 @@ const SEO_PAGES = {
   'hotel': {
     slug: 'hotel', title: 'Google review replies for hotels', keyword: 'hotel',
     desc: 'Reply to guest reviews in their own language, thank them for specifics, and handle complaints about rooms, noise or check-in calmly.',
+    guide: { href: '/blog/google-review-response-examples', text: 'Reply examples for hotels, restaurants, dentists and salons' },
     tipsTitle: 'What a good hotel reply does',
     tips: [
       'Reply in the guest\'s language. ReviewReply writes in the language of the review.',
@@ -114,17 +117,17 @@ const SEO_PAGES = {
 
 // Path and last substantive change. Update the date whenever a page's content changes.
 const SITEMAP = {
-  '/': '2026-10-07',
-  '/restaurant-reviews': '2026-10-07',
-  '/dentist-reviews': '2026-10-07',
-  '/hotel-reviews': '2026-10-07',
-  '/negative-reviews': '2026-10-09',
-  '/blog': '2026-10-09',
-  '/blog/how-to-respond-to-google-reviews': '2026-10-09',
-  '/blog/negative-review-response-templates': '2026-10-09',
-  '/blog/does-responding-to-reviews-help-seo': '2026-10-09',
-  '/blog/google-review-response-examples': '2026-10-09',
-  '/blog/google-review-reply-examples-restaurants': '2026-10-09',
+  '/': '2026-11-10',
+  '/restaurant-reviews': '2026-11-10',
+  '/dentist-reviews': '2026-11-10',
+  '/hotel-reviews': '2026-11-10',
+  '/negative-reviews': '2026-11-10',
+  '/blog': '2026-11-10',
+  '/blog/how-to-respond-to-google-reviews': '2026-11-10',
+  '/blog/negative-review-response-templates': '2026-11-10',
+  '/blog/does-responding-to-reviews-help-seo': '2026-11-10',
+  '/blog/google-review-response-examples': '2026-11-10',
+  '/blog/google-review-reply-examples-restaurants': '2026-11-10',
   '/privacy': '2026-10-11',
   '/terms': '2026-10-11'
 };
@@ -280,7 +283,7 @@ Object.keys(BLOG).forEach(function (route) {
 app.get('/privacy', (req, res) => res.render('privacy'));
 app.get('/terms', (req, res) => res.render('terms'));
 
-app.use((req, res) => res.status(404).send('<!doctype html><meta name="viewport" content="width=device-width"><title>Not found | ReviewReply</title><link rel="stylesheet" href="/rr.css"><div class="container"><h1>Page not found</h1><p><a href="/">Go to the review reply generator</a></p></div>'));
+app.use((req, res) => res.status(404).send('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><meta name="robots" content="noindex"><title>Not found | ReviewReply</title><link rel="stylesheet" href="/rr.css"><main class="container"><h1>Page not found</h1><p>That page does not exist. Try one of these:</p><ul><li><a href="/">Google review reply generator</a></li><li><a href="/restaurant-reviews">Replies for restaurants</a></li><li><a href="/negative-reviews">Replying to a negative review</a></li><li><a href="/blog">Guides and templates</a></li></ul></main>'));
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, '0.0.0.0', () => console.log('ReviewReply running on ' + PORT));
